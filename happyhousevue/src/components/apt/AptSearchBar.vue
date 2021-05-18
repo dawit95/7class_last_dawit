@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import http from '@/util/htpp-common';
+import http from '@/util/http-common';
 
 const sidoAddr = '/address/sido';
 const gugunAddr = '/address/gugun';
@@ -50,7 +50,13 @@ export default {
           console.log('gugunSelected ERROR : ' + error);
         });
     },
+<<<<<<< HEAD
     dongSelected: function () {},
+=======
+    dongSelected: function() {
+
+    }
+>>>>>>> b3aa2747f00b6eb268c10138a597d2447230dc44
   },
   created() {
     http
