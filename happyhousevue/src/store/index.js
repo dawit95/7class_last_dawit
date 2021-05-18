@@ -49,8 +49,8 @@ export default new Vuex.Store({
     getSidoList({ commit }) {
       axios
         .get('/address/sido')
-        .then(({ response }) => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
           commit('GET_SIDO_LIST', response);
         })
         .catch((error) => {
@@ -63,8 +63,8 @@ export default new Vuex.Store({
     getGugunList({ commit }, sido) {
       commit('SELECT_SIDO', sido);
       axios
-        .get('/address/gugun?sido='+sido)
-        .then(({ response }) => {
+        .get('/address/gugun?sido=' + sido)
+        .then((response) => {
           commit('GET_GUGUN_LIST', response.data.response.body.items.item);
         })
         .catch((error) => {
@@ -77,8 +77,8 @@ export default new Vuex.Store({
     getDongList({ commit }, gugun) {
       commit('SELECT_GUGUN', gugun);
       axios
-        .get('/address/dong?gugun='+gugun)
-        .then(({ response }) => {
+        .get('/address/dong?gugun=' + gugun)
+        .then((response) => {
           commit('GET_DONG_LIST', response.data.response.body.items.item);
         })
         .catch((error) => {
@@ -88,11 +88,11 @@ export default new Vuex.Store({
     // selectDong({ commit }, dong) {
     //   commit('SELECT_DONG', dong);
     // },
-    getAPT({ commit },dong) {
+    getAPT({ commit }, dong) {
       commit('SELECT_DONG', dong);
       axios
-        .get('/apt/all?dong='+dong)
-        .then(({ response }) => {
+        .get('/apt/all?dong=' + dong)
+        .then((response) => {
           commit('GET_APT_LIST', response.data.response.body.items.item);
         })
         .catch((error) => {
