@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="takeApt">가져와</button>
+    <button @click="addScript">지도야 나와라</button>
     <div id="aptMap"></div>
   </div>
 </template>
@@ -10,47 +10,28 @@
 // import axios from '@/util/http-common';
 export default {
   name: 'AptMap',
-  data() {
-    return {
-      apts: [],
-      infowindow: {},
-    };
+  mounted() {
+    window.kakao && window.kakao.maps ? this.initMap() : this.addScript();
   },
-  // methods: {
-  //   initMap() {
-  //     var mapContainer = document.getElementById('aptMap'), // 지도를 표시할 div
-  //       mapOption = {
-  //         center: new kakao.maps.LatLng(37.564343, 126.947613), // 지도의 중심좌표
-  //         level: 3, // 지도의 확대 레벨
-  //       };
-
-  //     var map = new kakao.maps.Map(mapContainer, mapOption);
-  //   },
-  //   takeApt() {
-  //     axios
-  //       .get('/apt/all?dong' + '방학동')
-  //       .then((response) => {
-  //         console.log(response);
-  //         this.apts = response;
-  //         this.initMap();
-  //       })
-  //       .catch((error) => {
-  //         alert(error);
-  //       });
-  //   },
-  // },
-  // mounted() {
-  //   if (window.kakao && window.kakao.maps) {
-  //     this.initMap();
-  //   } else {
-  //     const script = document.createElement('script');
-  //     /* global kakao */
-  //     script.onload = () => kakao.maps.load(this.initMap);
-  //     script.src =
-  //       'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=bcfb0cc7747cba9a89c33514eff6fd1c&libraries=services';
-  //     document.head.appendChild(script);
-  //   }
-  // },
+  methods: {
+    initMap() {
+      var container = document.getElementById('aptMap');
+      var options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      };
+      var map = new kakao.maps.Map(container, options); //마커추가하려면 객체를 아래와 같이 하나 만든다.
+      var marker = new kakao.maps.Marker({ position: map.getCenter() });
+      marker.setMap(map);
+    },
+    addScript() {
+      const script = document.createElement('script');
+      /* global kakao */ script.onload = () => kakao.maps.load(this.initMap);
+      script.src =
+        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=bcfb0cc7747cba9a89c33514eff6fd1c&libraries=services';
+      document.head.appendChild(script);
+    },
+  },
 };
 </script>
 
