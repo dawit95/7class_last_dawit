@@ -1,11 +1,27 @@
 <template>
   <div id="app">
-    <div id="nav"></div>
+    <headerForm/>
+    <searchForm/>
+    <div id="nav">네비게이션 바</div>
     <div id="contains">
+      <span>라우터 뷰가 아래에 보일 겁니다</span>
       <router-view></router-view>
     </div>
   </div>
 </template>
+
+<script>
+import HeaderForm from "@/components/HeaderForm"
+import SearchForm from "@/components/SearchForm"
+
+export default {
+  name: 'app',
+  components: {
+    HeaderForm,
+    SearchForm,
+  }
+}
+</script>
 
 <style>
 #app {
