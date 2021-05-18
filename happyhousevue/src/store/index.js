@@ -15,11 +15,7 @@ export default new Vuex.Store({
     apts: [],
     apt: {},
   },
-  getters: {
-    getSidoList(state) {
-      return sidoList;
-    },
-  },
+  getters: {},
   mutations: {
     GET_SIDO_LIST(state, sidoList) {
       // console.log(state, apts);
@@ -69,7 +65,7 @@ export default new Vuex.Store({
       axios
         .get('/address/gugun?sido=' + sido)
         .then((response) => {
-          commit('GET_GUGUN_LIST', response.data.response.body.items.item);
+          commit('GET_GUGUN_LIST', response);
         })
         .catch((error) => {
           alert(error);
@@ -83,7 +79,7 @@ export default new Vuex.Store({
       axios
         .get('/address/dong?gugun=' + gugun)
         .then((response) => {
-          commit('GET_DONG_LIST', response.data.response.body.items.item);
+          commit('GET_DONG_LIST', response);
         })
         .catch((error) => {
           alert(error);
@@ -97,7 +93,7 @@ export default new Vuex.Store({
       axios
         .get('/apt/all?dong=' + dong)
         .then((response) => {
-          commit('GET_APT_LIST', response.data.response.body.items.item);
+          commit('GET_APT_LIST', response);
         })
         .catch((error) => {
           alert(error);

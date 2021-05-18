@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <headerForm/>
-    <searchForm/>
-    <div id="nav">네비게이션 바</div>
+    <header-form />
     <div id="contains">
       <span>라우터 뷰가 아래에 보일 겁니다</span>
       <router-view></router-view>
@@ -11,16 +9,14 @@
 </template>
 
 <script>
-import HeaderForm from "@/components/HeaderForm"
-import SearchForm from "@/components/SearchForm"
+import HeaderForm from '@/components/HeaderForm';
 
 export default {
   name: 'app',
   components: {
     HeaderForm,
-    SearchForm,
-  }
-}
+  },
+};
 </script>
 
 <style>
