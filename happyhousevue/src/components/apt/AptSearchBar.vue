@@ -5,7 +5,9 @@
     <b-form-select v-model="gugunSelected" :options="gugunOptions"></b-form-select>
     <b-form-select v-model="dongSelected" :options="dongOptions"></b-form-select>
 
-    <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
+    <div class="mt-3">
+      Selected: <strong>{{ selected }}</strong>
+    </div>
   </div>
 </template>
 
@@ -25,31 +27,30 @@ export default {
       gugunOptions: [],
       dongSelected: null,
       dongOptions: [],
-    }
+    };
   },
   watch: {
-    sidoSelected: function() {
+    sidoSelected: function () {
       http
         .get(gugunAddr)
         .then((response) => {
           this.gugunOptions = response.gugun;
         })
         .catch((error) => {
-          console.log("sidoSelected ERROR : " + error);
-        })
+          console.log('sidoSelected ERROR : ' + error);
+        });
     },
-    gugunSelected: function() {
+    gugunSelected: function () {
       http
         .get(dongAddr)
         .then((response) => {
           this.dongOptions = response.dong;
         })
         .catch((error) => {
-          console.log("gugunSelected ERROR : " + error);
-        })
+          console.log('gugunSelected ERROR : ' + error);
+        });
     },
-    dongSelected: function() {
-    }
+    dongSelected: function () {},
   },
   created() {
     http
@@ -58,8 +59,8 @@ export default {
         this.sidoOptions = response.sido;
       })
       .catch((error) => {
-        console.log("sido : " + error);
-      })
+        console.log('sido : ' + error);
+      });
   },
 };
 </script>
