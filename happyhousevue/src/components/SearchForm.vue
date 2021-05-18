@@ -4,6 +4,7 @@
 		<div class="section-title">
 			<h2>search</h2>
 			<p>집 찾기</p>
+            <button @click="test">테스트</button>
 		</div>
 
 		<div class="row">
@@ -58,8 +59,22 @@
 </template>
 
 <script>
+import axios from '@/util/http-common';
+
 export default {
     name: 'searchForm',
+    methods: {
+        test() {
+            axios
+            .get('/address/sido')
+            .then(({ response }) => {
+            console.log(response)
+            })
+            .catch((error) => {
+            alert(error);
+            });
+        },
+    }
 };
 </script>
 
