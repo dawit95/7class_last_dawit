@@ -4,15 +4,12 @@
     <b-form-select v-model="sidoSelected" :options="sidoOptions"></b-form-select>
     <b-form-select v-model="gugunSelected" :options="gugunOptions"></b-form-select>
     <b-form-select v-model="dongSelected" :options="dongOptions"></b-form-select>
-
-    <div class="mt-3">
-      Selected: <strong>{{ selected }}</strong>
-    </div>
   </div>
 </template>
 
 <script>
 import http from '@/util/http-common';
+import { mapActions } from 'vuex';
 
 const sidoAddr = '/address/sido';
 const gugunAddr = '/address/gugun';
@@ -32,9 +29,16 @@ export default {
   watch: {
     sidoSelected: function () {
       http
-        .get(gugunAddr)
+        .get(gugunAddr + '?sido=' + this.sidoSelected)
         .then((response) => {
-          this.gugunOptions = response.gugun;
+          let List = response.data;
+          for (let idx = 0; idx < List.length; idx++) {
+            let gugunObj = List[idx].gugunName;
+            this.gugunOptions.push({
+              text: gugunObj,
+              value: gugunObj,
+            });
+          }
         })
         .catch((error) => {
           console.log('sidoSelected ERROR : ' + error);
@@ -42,27 +46,43 @@ export default {
     },
     gugunSelected: function () {
       http
-        .get(dongAddr)
+        .get(dongAddr + '?gugun=' + this.gugunSelected)
         .then((response) => {
-          this.dongOptions = response.dong;
+          let List = response.data;
+          for (let idx = 0; idx < List.length; idx++) {
+            let dongObj = List[idx].dongName;
+            this.dongOptions.push({
+              text: dongObj,
+              value: dongObj,
+            });
+          }
         })
         .catch((error) => {
           console.log('gugunSelected ERROR : ' + error);
         });
     },
-<<<<<<< HEAD
-    dongSelected: function () {},
-=======
-    dongSelected: function() {
-
-    }
->>>>>>> b3aa2747f00b6eb268c10138a597d2447230dc44
+    dongSelected: function () {
+      this.getAptgo();
+    },
+  },
+  methods: {
+    ...mapActions(['getAPT']),
+    getAptgo() {
+      this.getAPT(this.dongSelected);
+    },
   },
   created() {
     http
       .get(sidoAddr)
       .then((response) => {
-        this.sidoOptions = response.sido;
+        let sidoList = response.data;
+        for (let idx = 0; idx < sidoList.length; idx++) {
+          let sidoObj = sidoList[idx].sidoName;
+          this.sidoOptions.push({
+            text: sidoObj,
+            value: sidoObj,
+          });
+        }
       })
       .catch((error) => {
         console.log('sido : ' + error);

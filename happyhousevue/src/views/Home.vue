@@ -5,7 +5,7 @@
         <h2>아파트 매매 정보</h2>
       </b-col>
     </b-row>
-    <apt-search-bar />
+    <apt-search-bar></apt-search-bar>
     <b-row>
       <b-col cols="6" align="left">
         <apt-list />

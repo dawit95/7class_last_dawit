@@ -94,7 +94,7 @@ export default new Vuex.Store({
       axios
         .get('/apt/all?dong=' + dong)
         .then((response) => {
-          commit('GET_APT_LIST', response);
+          commit('GET_APT_LIST', response.data);
         })
         .catch((error) => {
           alert(error);
