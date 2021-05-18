@@ -10,11 +10,11 @@
 </template>
 
 <script>
-// import http from '@/util/htpp-common';
+import http from '@/util/htpp-common';
 
-// const sidoAddr = '/address/sido';
-// const gugunAddr = '/address/gugun';
-// const dongAddr = '/address/dong';
+const sidoAddr = '/address/sido';
+const gugunAddr = '/address/gugun';
+const dongAddr = '/address/dong';
 
 export default {
   data() {
@@ -27,7 +27,6 @@ export default {
       dongOptions: [],
     }
   },
-  /*
   watch: {
     sidoSelected: function() {
       http
@@ -61,7 +60,7 @@ export default {
       .catch((error) => {
         console.log("sido : " + error);
       })
-  },*/
+  },
 };
 </script>
 
