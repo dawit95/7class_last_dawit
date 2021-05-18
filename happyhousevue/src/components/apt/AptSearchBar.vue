@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import http from '@/util/htpp-common';
+import http from '@/util/http-common';
 
 const sidoAddr = '/address/sido';
 const gugunAddr = '/address/gugun';
@@ -49,6 +49,7 @@ export default {
         })
     },
     dongSelected: function() {
+
     }
   },
   created() {
