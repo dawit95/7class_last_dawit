@@ -15,7 +15,7 @@ export default new Vuex.Store({
     apts: [],
     apt: {},
   },
-  getters{},
+  getters: {},
   mutations: {
     GET_SIDO_LIST(state, apts) {
       // console.log(state, apts);
