@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <router-link to="{ name: 'board' }">공지사항</router-link>
+              <router-link to="/Board">공지사항</router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="">오늘의 뉴스</a>
