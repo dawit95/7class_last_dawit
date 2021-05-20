@@ -11,15 +11,18 @@
             <li class="nav-item">
               <router-link to="/board">공지사항</router-link>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="">오늘의 뉴스</a>
+            
+            <li class="nav-item">
+              <router-link to="/loginTest">오늘의 뉴스</router-link>
             </li>
+            <!--
             <li class="nav-item">
               <a class="nav-link" href="">주변 탐방</a>
-            </li> -->
+            </li>
+            -->
           </ul>
 
-          <!-- 로그인 안함. -->
+          <!-- 로그인 안함. 
           <div class="navbar-nav ml-auto" v-if="!currentUser">
             <li class="nav-item">
               <a href="/login" class="nav-link"> <font-awesome-icon icon="sign-in-alt" /> Login </a>
@@ -29,9 +32,9 @@
                 <font-awesome-icon icon="user-plus" /> Sign Up
               </a>
             </li>
-          </div>
+          </div>-->
 
-          <!-- 로그인 함. -->
+          <!-- 로그인 함. 
           <div class="navbar-nav ml-auto" v-if="currentUser">
             <li class="nav-item">
               <a href="/profile" class="nav-link">
@@ -44,7 +47,7 @@
                 <font-awesome-icon icon="sign-out-alt" /> LogOut
               </a>
             </li>
-          </div>
+          </div>-->
         </div>
         <!-- 제목 옆 nav 목록 끝! -->
       </div>
@@ -55,17 +58,17 @@
 <script>
 export default {
   name: 'HeaderForm',
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    },
-  },
-  methods: {
-    logOut() {
-      this.$store.dispatch('auth/logout');
-      this.$router.push('/');
-    },
-  },
+  // computed: {
+  //   currentUser() {
+  //     return this.$store.state.auth.user;
+  //   },
+  // },
+  // methods: {
+  //   logOut() {
+  //     this.$store.dispatch('auth/logout');
+  //     this.$router.push('/');
+  //   },
+  // },
 };
 </script>
 

@@ -4,10 +4,16 @@ import Home from '@/views/Home.vue';
 import Board from '@/views/Board.vue';
 import Sign from '@/views/Sign.vue';
 import MyPage from '@/views/MyPage.vue';
+import test from '@/components/test.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/loginTest',
+    name: 'LoginTest',
+    component: test,
+  },
   {
     path: '/',
     name: 'Home',

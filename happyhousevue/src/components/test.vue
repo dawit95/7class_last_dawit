@@ -37,7 +37,7 @@ const storage = window.sessionStorage;
 
 const ai = axios.create({
     //==============================================================
-    baseURL: "http://localhost:9999/api/"
+    baseURL: "http://localhost:9999/happyhouse/"
 });
 
 export default {
@@ -90,9 +90,9 @@ export default {
         login() {
             storage.setItem("jwt-auth-token", "");
             storage.setItem("login_user", "");
-            ai.post("/user/signin", {
+            ai.post("/member/signin", {
                 id: this.id,
-                password = this.password
+                password: this.password
             })
             .then(res => {
                 if(res.data.status) {
