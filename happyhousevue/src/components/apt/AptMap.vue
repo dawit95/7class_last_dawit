@@ -39,19 +39,29 @@
 //   },
 // };
 export default {
+  name: 'kakaoMap',
+  data() {
+    return {
+      markers: [],
+      points: [],
+      bounds: '',
+      moveLa: '',
+      moveLo: '',
+    };
+  },
   mounted() {
     window.kakao && window.kakao.maps ? this.initMap() : this.addKakaoMapScript();
   },
   updated() {
-    this.initMap();
+    // this.initMap();
   },
   methods: {
     addKakaoMapScript() {
-      const script = document.createElement('aptMap');
+      const script = document.createElement('script');
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=bcfb0cc7747cba9a89c33514eff6fd1c&libraries=services';
+        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=bcfb0cc7747cba9a89c33514eff6fd1c&libraries=services,clusterer,drawing';
       document.head.appendChild(script);
     },
     initMap() {
@@ -62,12 +72,12 @@ export default {
         level: 3, //지도의 레벨(확대, 축소 정도)
       };
 
-      var map2 = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+      var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
       var markerPosition = new kakao.maps.LatLng(37.566826, 126.9786567);
       var marker = new kakao.maps.Marker({
         position: markerPosition,
       });
-      marker.setMap(map2);
+      marker.setMap(map);
     },
   },
 };
