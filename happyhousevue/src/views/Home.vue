@@ -11,7 +11,7 @@
         <apt-list />
       </b-col>
       <b-col cols="6">
-        <apt-map />
+        <kakao-map />
       </b-col>
     </b-row>
   </b-container>
@@ -20,14 +20,14 @@
 <script>
 import AptSearchBar from '@/components/apt/AptSearchBar.vue';
 import AptList from '@/components/apt/AptList.vue';
-import AptMap from '@/components/apt/AptMap.vue';
+import KakaoMap from '@/components/KakaoMap.vue';
 
 export default {
   name: 'Home',
   components: {
     AptSearchBar,
     AptList,
-    AptMap,
+    KakaoMap,
   },
 };
 </script>
