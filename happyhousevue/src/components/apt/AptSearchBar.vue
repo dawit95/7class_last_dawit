@@ -31,6 +31,7 @@ export default {
       http
         .get(gugunAddr + '?sido=' + this.sidoSelected)
         .then((response) => {
+          this.gugunOptions = [];
           let List = response.data;
           for (let idx = 0; idx < List.length; idx++) {
             let gugunObj = List[idx].gugunName;
@@ -48,6 +49,7 @@ export default {
       http
         .get(dongAddr + '?gugun=' + this.gugunSelected)
         .then((response) => {
+          this.dongOptions = [];
           let List = response.data;
           for (let idx = 0; idx < List.length; idx++) {
             let dongObj = List[idx].dongName;
