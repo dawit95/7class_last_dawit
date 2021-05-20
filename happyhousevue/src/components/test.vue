@@ -35,4 +35,17 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  word-break: break-all;
+}
+th {
+  width: 50px;
+}
+td,
+th {
+  border: 1px solid black;
+}
+</style>
