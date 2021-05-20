@@ -83,8 +83,8 @@ export default {
       storage.setItem('jwt-auth-token', '');
       storage.setItem('login_user', '');
       let obj = {};
-      obj.id = this.loginID + '';
-      obj.pw = this.loginPW + '';
+      obj.id = this.loginID;
+      obj.pw = this.loginPW;
       axios
         .post('/member/signin', obj)
         .then((res) => {
