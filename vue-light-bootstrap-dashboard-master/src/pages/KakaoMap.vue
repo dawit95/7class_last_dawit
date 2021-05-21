@@ -71,12 +71,17 @@ export default {
 
       let imageSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      // 마커 이미지의 이미지 크기 입니다
+      let imageSize = new kakao.maps.Size(24, 35);
+
+      // 마커 이미지를 생성합니다
+      let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
       if (positions.length > 0) {
         this.markers = positions.map(
           position =>
             new kakao.maps.Marker({
               map: this.map,
-              title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
               image: markerImage, // 마커 이미지
               position
             })
