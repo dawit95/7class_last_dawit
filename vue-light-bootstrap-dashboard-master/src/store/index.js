@@ -4,8 +4,12 @@ import axios from "@/util/http-common";
 
 Vue.use(Vuex);
 
+const storage = window.sessionStorage;
+
 export default new Vuex.Store({
   state: {
+    userId: "",
+    userName: "",
     address: "",
     sido: "",
     gugun: "",
@@ -14,7 +18,9 @@ export default new Vuex.Store({
     apt: {},
     notice: {}
   },
-  getters: {},
+  getters: {
+    isLoggedIn: state => !!state.userName
+  },
   mutations: {
     GET_APT_LIST(state, apts) {
       state.apts = apts;
@@ -30,6 +36,13 @@ export default new Vuex.Store({
     },
     SELECT_APT(state, apt) {
       state.apt = apt;
+    },
+    LOGIN(state, name) {
+      state.userName = name;
+    },
+    LOGOUT(state) {
+      state.userName = "";
+      state.userId = "";
     },
     SET_NOTICE(state, notice) {
       state.notice = notice;
@@ -58,6 +71,28 @@ export default new Vuex.Store({
     },
     selectAPT({ commit }, apt) {
       commit("SELECT_APT", apt);
+    },
+    logIn({ commit }, obj) {
+      storage.setItem('jwt-auth-token', '');
+      storage.setItem('login_user', '');
+      axios
+        .post('/member/signin', obj)
+        .then((res) => {
+          if (res.data.status) {
+            // console.dir(res.headers['jst-auth-token']);
+            storage.setItem('jwt-auth-token', res.headers['jwt-auth-token']);
+            storage.setItem('login_user', res.data.data.id);
+            let userName = res.data.data.name;
+            commit("LOGIN", userName);
+          }
+        })
+        .catch((e) => {
+        })
+    },
+    logOut({ commit }) {
+      commit("LOGOUT");
+      localStorage.removeItem('jwt-auth-token');
+      resolve();
     },
     setNotice({ commit }, notice) {
       commit("SET_NOTICE", notice);

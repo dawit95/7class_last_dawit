@@ -41,7 +41,7 @@
             </a>
           </li> -->
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" v-if="signedIn">
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               Account
@@ -57,6 +57,13 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown> -->
           <li class="nav-item">
+            <a href="#" class="nav-link">
+              Log out
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" v-else>
+          <li class="nav-item">
             <b-button v-b-modal.login-modal>Log In</b-button>
             <!-- <a href="#" class="nav-link">
               Log In
@@ -65,11 +72,6 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               Sign Up
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              Log out
             </a>
           </li>
         </ul>
@@ -113,6 +115,10 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
+const storage = window.sessionStorage;
+
 export default {
   computed: {
     routeName() {
@@ -128,6 +134,7 @@ export default {
       pswd: '',
       pswdState: null,
       state: null,
+      signedIn: this.$store.getters.isLoggedIn || false
     };
   },
   methods: {
@@ -158,6 +165,19 @@ export default {
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    init() {
+      if(!storage.getItem('jwt-auth-token')) {
+        storage.setItem('jwt-auth-token', '');
+      }
+    },
+    ...mapActions(["logIn"]),
+    logIngo() {
+      let obj = {
+        id: this.id,
+        pw: this.pswd
+      }
+      this.logIn(obj);
     }
     // toggleNotificationDropDown() {
     //   this.activeNotifications = !this.activeNotifications;
