@@ -58,7 +58,7 @@ export default {
       }
       setTimeout(() => {
         this.displayMarker(markerPositions);
-      }, 500);
+      }, 1000);
     },
     displayMarker(markerPositions) {
       if (this.markers.length > 0) {
@@ -69,11 +69,15 @@ export default {
         position => new kakao.maps.LatLng(...position)
       );
 
+      let imageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
       if (positions.length > 0) {
         this.markers = positions.map(
           position =>
             new kakao.maps.Marker({
               map: this.map,
+              title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+              image: markerImage, // 마커 이미지
               position
             })
         );

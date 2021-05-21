@@ -8,11 +8,12 @@
               <h4 class="card-title">Table on Plain Background</h4>
               <p class="card-category">Here is a subtitle for this table</p>
             </template>
+            <l-table-dtail></l-table-dtail>
             <div class="table-responsive">
               <l-table
                 class="table-hover"
-                :columns="table2.columns"
-                :data="table2.data"
+                :columns="table.columns"
+                :data="table.data"
               >
               </l-table>
             </div>
@@ -23,58 +24,117 @@
   </div>
 </template>
 <script>
+import LTableDtail from "src/components/TableDtail.vue";
 import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
-const tableColumns = ["Id", "Name", "Salary", "Country", "City"];
+const tableColumns = [
+  { no: "번호" },
+  { title: "글제목" },
+  { postdate: "작성일" },
+  { authorid: "작성자" },
+  { views: "조회수" }
+];
 const tableData = [
   {
-    id: 1,
-    name: "Dakota Rice",
-    salary: "$36.738",
-    country: "Niger",
-    city: "Oud-Turnhout"
+    no: 1,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
   },
   {
-    id: 2,
-    name: "Minerva Hooper",
-    salary: "$23,789",
-    country: "Curaçao",
-    city: "Sinaai-Waas"
+    no: 2,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
   },
   {
-    id: 3,
-    name: "Sage Rodriguez",
-    salary: "$56,142",
-    country: "Netherlands",
-    city: "Baileux"
+    no: 3,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
   },
   {
-    id: 4,
-    name: "Philip Chaney",
-    salary: "$38,735",
-    country: "Korea, South",
-    city: "Overland Park"
+    no: 4,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
   },
   {
-    id: 5,
-    name: "Doris Greene",
-    salary: "$63,542",
-    country: "Malawi",
-    city: "Feldkirchen in Kärnten"
+    no: 5,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
+  },
+  {
+    no: 6,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
+  },
+  {
+    no: 7,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
+  },
+  {
+    no: 8,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
+  },
+  {
+    no: 9,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
+  },
+  {
+    no: 10,
+    title: "Dakota Rice",
+    postdate: "$36.738",
+    views: "Niger",
+    content: "Oud-Turnhout",
+    authorid: "Dakota Rice",
+    type: "$36.738"
   }
 ];
 export default {
   components: {
     LTable,
+    LTableDtail,
     Card
   },
   data() {
     return {
-      table1: {
-        columns: [...tableColumns],
-        data: [...tableData]
-      },
-      table2: {
+      table: {
         columns: [...tableColumns],
         data: [...tableData]
       }

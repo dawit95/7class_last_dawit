@@ -1,5 +1,24 @@
 <template>
-  <table class="table">
+  <div class="overflow-auto">
+    <b-table
+      id="my-table"
+      :fields="columns"
+      :items="data"
+      :per-page="perPage"
+      :current-page="currentPage"
+      hover
+      @row-clicked="goDetailModal"
+    ></b-table>
+    <div class="d-flex justify-content-center">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
+    </div>
+  </div>
+  <!-- <table class="table">
     <thead>
       <slot name="columns">
         <tr>
@@ -14,24 +33,34 @@
       </slot>
     </tr>
     </tbody>
-  </table>
+  </table> -->
 </template>
 <script>
-  export default {
-    name: 'l-table',
-    props: {
-      columns: Array,
-      data: Array
-    },
-    methods: {
-      hasValue (item, column) {
-        return item[column.toLowerCase()] !== 'undefined'
-      },
-      itemValue (item, column) {
-        return item[column.toLowerCase()]
-      }
+import { mapActions } from "vuex";
+
+export default {
+  name: "l-table",
+  data() {
+    return {
+      perPage: 5,
+      currentPage: 1
+    };
+  },
+  props: {
+    columns: Array,
+    data: Array
+  },
+  methods: {
+    ...mapActions(["setNotice"]),
+    goDetailModal(notice) {
+      this.setNotice(notice);
+    }
+  },
+  computed: {
+    rows() {
+      return this.data.length;
     }
   }
+};
 </script>
-<style>
-</style>
+<style></style>

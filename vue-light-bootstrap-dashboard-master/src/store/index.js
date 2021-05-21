@@ -11,7 +11,8 @@ export default new Vuex.Store({
     gugun: "",
     dong: "",
     apts: [],
-    apt: {}
+    apt: {},
+    notice: {}
   },
   getters: {},
   mutations: {
@@ -29,19 +30,21 @@ export default new Vuex.Store({
     },
     SELECT_APT(state, apt) {
       state.apt = apt;
+    },
+    SET_NOTICE(state, notice) {
+      state.notice = notice;
     }
   },
   actions: {
-    // selectSido({ commit }, sido) {
-    //   commit('SELECT_SIDO', sido);
-    // },
-
-    // selectGugun({ commit }, gugun) {
-    //   commit('SELECT_GUGUN', gugun);
-    // },
-    // selectDong({ commit }, dong) {
-    //   commit('SELECT_DONG', dong);
-    // },
+    selectSido({ commit }, sido) {
+      commit("SELECT_SIDO", sido);
+    },
+    selectGugun({ commit }, gugun) {
+      commit("SELECT_GUGUN", gugun);
+    },
+    selectDong({ commit }, dong) {
+      commit("SELECT_DONG", dong);
+    },
     getAPT({ commit }, dong) {
       commit("SELECT_DONG", dong);
       axios
@@ -55,6 +58,9 @@ export default new Vuex.Store({
     },
     selectAPT({ commit }, apt) {
       commit("SELECT_APT", apt);
+    },
+    setNotice({ commit }, notice) {
+      commit("SET_NOTICE", notice);
     }
   },
   modules: {}
