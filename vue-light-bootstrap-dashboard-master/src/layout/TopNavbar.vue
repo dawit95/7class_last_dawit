@@ -57,9 +57,10 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown> -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <b-button v-b-modal.login-modal>Log In</b-button>
+            <!-- <a href="#" class="nav-link">
               Log In
-            </a>
+            </a> -->
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -74,6 +75,40 @@
         </ul>
       </div>
     </div>
+
+    <b-modal
+      id="login-modal"
+      ref="modal"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk">
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+          label="Id"
+          label-for="id-input"
+          invalid-feedback="아이디를 입력하세요"
+          :state="idState">
+          <b-form-input
+            id="id-input"
+            v-model="id"
+            :state="idState"
+            required>
+          </b-form-input>
+        </b-form-group>
+        <b-form-group
+          label="Pswd"
+          label-for="pswd-input"
+          invalid-feedback="비밀번호를 입력하세요"
+          :state="pswdState">
+          <b-form-input
+            id="pswd-input"
+            v-model="pswd"
+            :state="pswdState"
+            required>
+          </b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </nav>
 </template>
 
@@ -87,10 +122,40 @@ export default {
   },
   data() {
     return {
-      activeNotifications: false
+      activeNotifications: false,
+      id: '',
+      idState: null,
+      pswd: '',
+      pswdState: null,
+      state: null,
     };
   },
   methods: {
+    checkFormValidity() {
+      const valid = this.$refs.form.checkValidity()
+      this.idState = valid
+      this.pswdState = valid
+      this.state = valid
+      return valid
+    },
+    resetModal() {
+      this.id = ''
+      this.idState = null
+      this.pswd = ''
+      this.pswdState = null
+    },
+    handleOk(bvModalEvt) {
+      bvModalEvt.preventDefault()
+      this.handleSubmit()
+    },
+    handleSubmit() {
+      if(!this.checkFormValidity()) {
+        return
+      }
+      this.$nextTick(() => {
+        this.$bvModal.hide('login-modal')
+      })
+    },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
