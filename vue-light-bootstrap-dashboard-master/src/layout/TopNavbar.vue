@@ -83,30 +83,30 @@
       ref="modal"
       @show="resetModal"
       @hidden="resetModal"
-      @ok="handleOk">
+      @ok="handleOk"
+    >
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
           label="Id"
           label-for="id-input"
           invalid-feedback="아이디를 입력하세요"
-          :state="idState">
-          <b-form-input
-            id="id-input"
-            v-model="id"
-            :state="idState"
-            required>
+          :state="idState"
+        >
+          <b-form-input id="id-input" v-model="id" :state="idState" required>
           </b-form-input>
         </b-form-group>
         <b-form-group
           label="Pswd"
           label-for="pswd-input"
           invalid-feedback="비밀번호를 입력하세요"
-          :state="pswdState">
+          :state="pswdState"
+        >
           <b-form-input
             id="pswd-input"
             v-model="pswd"
             :state="pswdState"
-            required>
+            required
+          >
           </b-form-input>
         </b-form-group>
       </form>
@@ -129,9 +129,9 @@ export default {
   data() {
     return {
       activeNotifications: false,
-      id: '',
+      id: "",
       idState: null,
-      pswd: '',
+      pswd: "",
       pswdState: null,
       state: null,
       signedIn: this.$store.getters.isLoggedIn || false
@@ -139,36 +139,37 @@ export default {
   },
   methods: {
     checkFormValidity() {
-      const valid = this.$refs.form.checkValidity()
-      this.idState = valid
-      this.pswdState = valid
-      this.state = valid
-      return valid
+      const valid = this.$refs.form.checkValidity();
+      this.idState = valid;
+      this.pswdState = valid;
+      this.state = valid;
+      return valid;
     },
     resetModal() {
-      this.id = ''
-      this.idState = null
-      this.pswd = ''
-      this.pswdState = null
+      this.id = "";
+      this.idState = null;
+      this.pswd = "";
+      this.pswdState = null;
     },
     handleOk(bvModalEvt) {
-      bvModalEvt.preventDefault()
-      this.handleSubmit()
+      bvModalEvt.preventDefault();
+      this.handleSubmit();
     },
     handleSubmit() {
-      if(!this.checkFormValidity()) {
-        return
+      if (!this.checkFormValidity()) {
+        return;
       }
       this.$nextTick(() => {
-        this.$bvModal.hide('login-modal')
-      })
+        this.$bvModal.hide("login-modal");
+      });
+      this.logIngo();
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
     init() {
-      if(!storage.getItem('jwt-auth-token')) {
-        storage.setItem('jwt-auth-token', '');
+      if (!storage.getItem("jwt-auth-token")) {
+        storage.setItem("jwt-auth-token", "");
       }
     },
     ...mapActions(["logIn"]),
@@ -176,7 +177,7 @@ export default {
       let obj = {
         id: this.id,
         pw: this.pswd
-      }
+      };
       this.logIn(obj);
     }
     // toggleNotificationDropDown() {

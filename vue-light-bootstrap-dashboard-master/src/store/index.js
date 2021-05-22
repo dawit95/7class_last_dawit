@@ -73,25 +73,24 @@ export default new Vuex.Store({
       commit("SELECT_APT", apt);
     },
     logIn({ commit }, obj) {
-      storage.setItem('jwt-auth-token', '');
-      storage.setItem('login_user', '');
+      storage.setItem("jwt-auth-token", "");
+      storage.setItem("login_user", "");
       axios
-        .post('/member/signin', obj)
-        .then((res) => {
+        .post("/member/signin", obj)
+        .then(res => {
           if (res.data.status) {
             // console.dir(res.headers['jst-auth-token']);
-            storage.setItem('jwt-auth-token', res.headers['jwt-auth-token']);
-            storage.setItem('login_user', res.data.data.id);
+            storage.setItem("jwt-auth-token", res.headers["jwt-auth-token"]);
+            storage.setItem("login_user", res.data.data.id);
             let userName = res.data.data.name;
             commit("LOGIN", userName);
           }
         })
-        .catch((e) => {
-        })
+        .catch(e => {});
     },
     logOut({ commit }) {
       commit("LOGOUT");
-      localStorage.removeItem('jwt-auth-token');
+      localStorage.removeItem("jwt-auth-token");
       resolve();
     },
     setNotice({ commit }, notice) {

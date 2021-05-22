@@ -13,7 +13,7 @@
               <l-table
                 class="table-hover"
                 :columns="table.columns"
-                :data="table.data"
+                :data="tableData"
               >
               </l-table>
             </div>
@@ -27,104 +27,18 @@
 import LTableDtail from "src/components/TableDtail.vue";
 import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
+
+import http from "../util/http-common";
+import { mapActions } from "vuex";
+
+const storage = window.sessionStorage;
+
 const tableColumns = [
   { no: "번호" },
   { title: "글제목" },
   { postdate: "작성일" },
   { authorid: "작성자" },
   { views: "조회수" }
-];
-const tableData = [
-  {
-    no: 1,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 2,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 3,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 4,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 5,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 6,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 7,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 8,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 9,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  },
-  {
-    no: 10,
-    title: "Dakota Rice",
-    postdate: "$36.738",
-    views: "Niger",
-    content: "Oud-Turnhout",
-    authorid: "Dakota Rice",
-    type: "$36.738"
-  }
 ];
 export default {
   components: {
@@ -134,11 +48,25 @@ export default {
   },
   data() {
     return {
+      tableData: [],
       table: {
-        columns: [...tableColumns],
-        data: [...tableData]
+        columns: [...tableColumns]
       }
     };
+  },
+  created() {
+    http
+      .get("/board/all", {
+        headers: {
+          "jwt-auth-token": storage.getItem("jwt-auth-token")
+        }
+      })
+      .then(response => {
+        this.tableData = response.data;
+      })
+      .catch(error => {
+        console.log("sido : " + error);
+      });
   }
 };
 </script>
