@@ -146,7 +146,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <card class="card-plain">
             <template slot="header">
               <h3 class="card-title"><strong>클릭 아파트 거래 목록</strong></h3>
@@ -155,9 +155,14 @@
               <l-table class="table-hover" :data="detailList"> </l-table>
             </div>
           </card>
-          <!-- <div class="text-center">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
             <h1>뉴스</h1>
-          </div> -->
+          </div>
           <!-- <chart-card
             :chart-data="barChart.data"
             :chart-options="barChart.options"

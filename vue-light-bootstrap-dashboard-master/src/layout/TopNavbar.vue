@@ -116,8 +116,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 const storage = window.sessionStorage;
 
 export default {
@@ -164,7 +162,11 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide("login-modal");
       });
-      this.logIngo();
+      let obj = {
+        id: this.id,
+        pw: this.pswd
+      };
+      this.$store.dispatch("memberSession/logIn", obj);
     },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -173,15 +175,8 @@ export default {
       if (!storage.getItem("jwt-auth-token")) {
         storage.setItem("jwt-auth-token", "");
       }
-    },
-    ...mapActions(["logIn"]),
-    logIngo() {
-      let obj = {
-        id: this.id,
-        pw: this.pswd
-      };
-      this.logIn(obj);
     }
+
     // toggleNotificationDropDown() {
     //   this.activeNotifications = !this.activeNotifications;
     // },

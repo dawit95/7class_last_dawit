@@ -69,11 +69,7 @@ export default {
   },
   created() {
     axios
-      .get("/board/all", {
-        headers: {
-          "jwt-auth-token": storage.getItem("jwt-auth-token")
-        }
-      })
+      .get("/board/all")
       .then(response => {
         this.tableData = response.data.boardlist;
         alert(response.data.usertype);

@@ -36,8 +36,6 @@
   </table> -->
 </template>
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "l-table",
   data() {
@@ -51,9 +49,8 @@ export default {
     data: Array
   },
   methods: {
-    ...mapActions(["boardSession/setNotice"]),
     goDetailModal(notice) {
-      this.setNotice(notice);
+      this.$store.dispatch("boardSession/setNotice", notice);
       notice.views += 1;
     }
   },

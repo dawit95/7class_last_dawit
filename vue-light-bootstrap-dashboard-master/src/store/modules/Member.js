@@ -23,15 +23,22 @@ const mutations = {
 // Actions
 const actions = {
   logIn({ commit }, obj) {
-    storage.setItem("jwt-auth-token", "");
-    storage.setItem("login_user", "");
+    storage.setItem("at-jwt-access-token", "");
+    storage.setItem("at-jwt-refresh-token", "");
     axios
       .post("/member/signin", obj)
       .then(res => {
         if (res.data.status) {
           // console.dir(res.headers['jst-auth-token']);
-          storage.setItem("jwt-auth-token", res.headers["jwt-auth-token"]);
-          storage.setItem("login_user", res.data.data.id);
+          storage.setItem(
+            "at-jwt-access-token",
+            res.headers["at-jwt-access-token"]
+          );
+          storage.setItem(
+            "at-jwt-refresh-token",
+            res.headers["at-jwt-refresh-token"]
+          );
+          // storage.setItem("login_user", res.data.data.id);
           let userName = res.data.data.name;
           commit("LOGIN", userName);
         }
