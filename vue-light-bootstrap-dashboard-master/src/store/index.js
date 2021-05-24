@@ -94,7 +94,15 @@ export default new Vuex.Store({
       resolve();
     },
     setNotice({ commit }, notice) {
-      commit("SET_NOTICE", notice);
+      axios
+        .get("/board/read?no=" + notice.no)
+        .then(res => {
+          notice = res.data;
+          commit("SET_NOTICE", notice);
+        })
+        .catch(e => {
+          alert("서버에 문제가 생겼습니다.");
+        });
     }
   },
   modules: {},
