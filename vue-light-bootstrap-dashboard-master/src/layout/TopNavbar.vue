@@ -103,6 +103,7 @@
         >
           <b-form-input
             id="pswd-input"
+            type="password"
             v-model="pswd"
             :state="pswdState"
             required
@@ -134,7 +135,7 @@ export default {
       pswd: "",
       pswdState: null,
       state: null,
-      signedIn: this.$store.getters.isLoggedIn || false
+      // signedIn: this.$store.getters.isLoggedIn,
     };
   },
   methods: {

@@ -19,7 +19,7 @@ export default new Vuex.Store({
     notice: {}
   },
   getters: {
-    isLoggedIn: state => !!state.userName
+    // isLoggedIn: state => !!state.userName
   },
   mutations: {
     GET_APT_LIST(state, apts) {
@@ -97,5 +97,8 @@ export default new Vuex.Store({
       commit("SET_NOTICE", notice);
     }
   },
-  modules: {}
+  modules: {},
+  // created() {
+  //   console.log("onCreated");
+  // },
 });
