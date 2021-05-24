@@ -1,18 +1,18 @@
 <template>
   <card>
     <form>
+      <div class="col-md-12" style="text-align:center">
+        <strong> {{ notice.title }} </strong>
+      </div>
       <div class="row">
-        <div class="col-md-8">
-          <div>
-            <strong>{{ notice.title }}</strong>
-          </div>
-        </div>
-        <div class="col-md-3">작성자 : {{ notice.authorId }}</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-7">작성자 : {{ notice.authorId }}</div>
+        <div class="col-md-3">작성날짜 : {{ notice.postdate }}</div>
+        <div class="col-md-1"></div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label>내용</label>
             <textarea
               rows="5"
               class="form-control border-input"
