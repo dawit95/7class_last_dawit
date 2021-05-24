@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import LTableDtail from "src/components/TableDtail.vue";
+import LTableDtail from "src/components/BoardTableDtail.vue";
 import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
 
