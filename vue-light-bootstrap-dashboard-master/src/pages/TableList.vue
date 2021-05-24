@@ -65,7 +65,8 @@ export default {
         this.tableData = response.data;
       })
       .catch(error => {
-        console.log("sido : " + error);
+        alert("로그인해주세요~!");
+        this.$router.push("/admin/overview");
       });
   }
 };
