@@ -40,8 +40,7 @@
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
           </li> -->
-        </ul>
-        <ul class="navbar-nav ml-auto" v-if="signedIn">
+
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">
               Account
@@ -56,22 +55,37 @@
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown> -->
+        </ul>
+        <ul class="navbar-nav ml-auto" v-if="!currentUser">
+          <li class="nav-item">
+            <a href="#" class="nav-link" @click="$bvModal.show('login-modal')">
+              <i class="nc-icon nc-circle-09"></i>&nbsp; Login
+            </a>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              Log out
+              <i class="nc-icon nc-notes"></i>&nbsp; Sign Up
             </a>
           </li>
         </ul>
-        <ul class="navbar-nav ml-auto" v-else>
+        <ul class="navbar-nav ml-auto" v-if="currentUser">
           <li class="nav-item">
-            <b-button v-b-modal.login-modal>Log In</b-button>
-            <!-- <a href="#" class="nav-link">
-              Log In
-            </a> -->
+            <a href="#" class="nav-link"> {{ username }}님 </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              Sign Up
+            <base-dropdown title="Dropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something</a>
+              <div class="divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </base-dropdown>
+          </li>
+          <li class="nav-item">
+            <a href class="nav-link" @click="logOut">
+              <i class="nc-icon nc-spaceship"></i> LogOut
             </a>
           </li>
         </ul>
@@ -116,13 +130,19 @@
 </template>
 
 <script>
-const storage = window.sessionStorage;
-
 export default {
   computed: {
-    routeName() {
-      const { name } = this.$route;
-      return this.capitalizeFirstLetter(name);
+    currentUser() {
+      return this.$store.state.memberSession.isAuth;
+    },
+    getNotice() {
+      return this.$store.state.memberSession.uname;
+    }
+  },
+  watch: {
+    getNotice(val) {
+      this.username = val;
+      console.log(val);
     }
   },
   data() {
@@ -133,8 +153,7 @@ export default {
       pswd: "",
       pswdState: null,
       state: null,
-      signedIn: false
-      // signedIn: this.$store.getters.isLoggedIn,
+      username: ""
     };
   },
   methods: {
@@ -166,15 +185,11 @@ export default {
         id: this.id,
         pw: this.pswd
       };
-      this.$store.dispatch("memberSession/logIn", obj);
+      this.$store.dispatch("memberSession/login", obj);
     },
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    init() {
-      if (!storage.getItem("jwt-auth-token")) {
-        storage.setItem("jwt-auth-token", "");
-      }
+    logOut() {
+      this.$store.dispatch("memberSession/logOut");
+      this.$router.push("/admin");
     }
 
     // toggleNotificationDropDown() {

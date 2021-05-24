@@ -2,27 +2,40 @@ import axios from "@/plugins/axios";
 const storage = window.sessionStorage;
 // initial state
 const state = {
-  userId: "",
-  userName: ""
+  uname: "",
+  errorState: "",
+  isAuth: false
 };
 
 // getter
-const getter = {};
+const getter = {
+  getUname: state => state.uname,
+  getErrorState: state => state.errorState,
+  getIsAuth: state => state.isAuth
+};
 
 // mutations
 const mutations = {
+  ERROR_STATE(state, errorState) {
+    state.errorState = errorState;
+  },
+  IS_AUTH(state, isAuth) {
+    state.isAuth = isAuth;
+  },
+
   LOGIN(state, name) {
-    state.userName = name;
+    state.uname = name;
+    state.isAuth = true;
   },
   LOGOUT(state) {
-    state.userName = "";
-    state.userId = "";
+    state.uname = "";
+    state.isAuth = false;
   }
 };
 
 // Actions
 const actions = {
-  logIn({ commit }, obj) {
+  login({ commit }, obj) {
     storage.setItem("at-jwt-access-token", "");
     storage.setItem("at-jwt-refresh-token", "");
     axios
@@ -47,8 +60,8 @@ const actions = {
   },
   logOut({ commit }) {
     commit("LOGOUT");
-    localStorage.removeItem("jwt-auth-token");
-    resolve();
+    storage.setItem("at-jwt-access-token", "");
+    storage.setItem("at-jwt-refresh-token", "");
   }
 };
 
