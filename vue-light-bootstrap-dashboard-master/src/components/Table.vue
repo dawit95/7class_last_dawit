@@ -54,6 +54,7 @@ export default {
     ...mapActions(["setNotice"]),
     goDetailModal(notice) {
       this.setNotice(notice);
+      notice.views += 1;
     }
   },
   computed: {

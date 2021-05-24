@@ -95,9 +95,14 @@ export default new Vuex.Store({
     },
     setNotice({ commit }, notice) {
       axios
-        .get("/board/read?no=" + notice.no)
+        .get("/board/read?no=" + notice.no, {
+          headers: {
+            "jwt-auth-token": storage.getItem("jwt-auth-token")
+          }
+        })
         .then(res => {
-          notice = res.data;
+          // console.log(res.data.data);
+          notice = res.data.data;
           commit("SET_NOTICE", notice);
         })
         .catch(e => {
