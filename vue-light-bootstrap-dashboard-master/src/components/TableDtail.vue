@@ -1,8 +1,14 @@
 <template>
   <card>
-    <h4 slot="header" class="card-title">공지사항</h4>
     <form>
-      <div></div>
+      <div class="row">
+        <div class="col-md-8">
+          <div>
+            <strong>{{ notice.title }}</strong>
+          </div>
+        </div>
+        <div class="col-md-3">작성자 : {{ notice.authorId }}</div>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
@@ -12,13 +18,14 @@
               class="form-control border-input"
               placeholder="Here can be your description"
               v-model="notice.content"
+              readonly
             >
             </textarea>
           </div>
         </div>
       </div>
 
-      <div aline="right">{{ notice.postdate }}</div>
+      <div class="text-right" aline="right">{{ notice.postdate }}</div>
       <p class="mt-3">Store.state.notice : {{ notice }}</p>
 
       <!-- <div class="text-center">

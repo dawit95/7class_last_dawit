@@ -5,8 +5,8 @@
         <div class="col-12">
           <card class="card-plain">
             <template slot="header">
-              <h4 class="card-title">Table on Plain Background</h4>
-              <p class="card-category">Here is a subtitle for this table</p>
+              <h3 class="card-title"><strong>공지사항</strong></h3>
+              <p class="card-category">목록 'click'시 상세내용 확인가능</p>
             </template>
             <l-table-dtail></l-table-dtail>
             <div class="table-responsive">
@@ -37,7 +37,7 @@ const tableColumns = [
   { no: "번호" },
   { title: "글제목" },
   { postdate: "작성일" },
-  { authorid: "작성자" },
+  { authorId: "작성자" },
   { views: "조회수" }
 ];
 export default {
