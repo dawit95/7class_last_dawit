@@ -135,6 +135,7 @@ export default {
       pswd: "",
       pswdState: null,
       state: null,
+      signedIn: false
       // signedIn: this.$store.getters.isLoggedIn,
     };
   },

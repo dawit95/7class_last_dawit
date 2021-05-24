@@ -51,8 +51,22 @@ export default {
       tableData: [],
       table: {
         columns: [...tableColumns]
+      },
+      notifications: {
+        topCenter: false
       }
     };
+  },
+  methods: {
+    notifyVue(verticalAlign, horizontalAlign) {
+      this.$notifications.notify({
+        message: `<span><b> 로그인해주세요~!! </b> - 회원만 사용가능한 서비스입니다 ".alert-danger"</span>`,
+        icon: "nc-icon nc-app",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "danger"
+      });
+    }
   },
   created() {
     http
@@ -62,10 +76,11 @@ export default {
         }
       })
       .then(response => {
-        this.tableData = response.data;
+        this.tableData = response.data.boardlist;
+        alert(response.data.usertype);
       })
       .catch(error => {
-        alert("로그인해주세요~!");
+        this.notifyVue("top", "center");
         this.$router.push("/admin/overview");
       });
   }

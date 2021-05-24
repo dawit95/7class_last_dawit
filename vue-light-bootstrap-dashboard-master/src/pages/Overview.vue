@@ -147,9 +147,17 @@
 
       <div class="row">
         <div class="col-md-6">
-          <div class="text-center">
+          <card class="card-plain">
+            <template slot="header">
+              <h3 class="card-title"><strong>클릭 아파트 거래 목록</strong></h3>
+            </template>
+            <div class="table-responsive">
+              <l-table class="table-hover" :data="detailList"> </l-table>
+            </div>
+          </card>
+          <!-- <div class="text-center">
             <h1>뉴스</h1>
-          </div>
+          </div> -->
           <!-- <chart-card
             :chart-data="barChart.data"
             :chart-options="barChart.options"
@@ -247,7 +255,8 @@ export default {
       selectedDong: "",
       sidoOptions: [],
       gugunOptions: [],
-      dongOptions: []
+      dongOptions: [],
+      detailList: []
       //   editTooltip: "Edit Task",
       //   deleteTooltip: "Remove",
       //   pieChart: {
@@ -372,7 +381,15 @@ export default {
       //   }
     };
   },
+  computed: {
+    check_detail() {
+      return this.$store.state.aptdetail;
+    }
+  },
   watch: {
+    check_detail(val) {
+      this.detailList = val;
+    },
     selectedSido: function() {
       http
         .get(gugunAddr + "?sido=" + this.selectedSido)

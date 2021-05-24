@@ -15,6 +15,7 @@ export default new Vuex.Store({
     gugun: "",
     dong: "",
     apts: [],
+    aptdetail: [],
     apt: {},
     notice: {}
   },
@@ -24,6 +25,9 @@ export default new Vuex.Store({
   mutations: {
     GET_APT_LIST(state, apts) {
       state.apts = apts;
+    },
+    GET_APT_DETAIL_LIST(state, aptdetail) {
+      state.aptdetail = aptdetail;
     },
     SELECT_SIDO(state, sido) {
       state.sido = sido;
@@ -64,6 +68,16 @@ export default new Vuex.Store({
         .get("/apt/all?dong=" + dong)
         .then(response => {
           commit("GET_APT_LIST", response.data);
+        })
+        .catch(error => {
+          alert(error);
+        });
+    },
+    getAPTDetail({ commit }, no) {
+      axios
+        .get("/apt/detail?no=" + no)
+        .then(response => {
+          commit("GET_APT_DETAIL_LIST", response.data);
         })
         .catch(error => {
           alert(error);
@@ -110,7 +124,7 @@ export default new Vuex.Store({
         });
     }
   },
-  modules: {},
+  modules: {}
   // created() {
   //   console.log("onCreated");
   // },

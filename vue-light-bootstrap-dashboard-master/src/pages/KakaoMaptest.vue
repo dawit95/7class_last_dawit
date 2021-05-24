@@ -52,14 +52,14 @@ export default {
         const element = this.aptList[idx];
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(element.address, function(result, status) {
-          let marker = {};
+          let obj = {};
           if (status === kakao.maps.services.Status.OK) {
-            marker = {
+            obj = {
               content: element.no,
               position: [result[0].y, result[0].x]
             };
+            markerPositions.push(obj);
           }
-          markerPositions.push(marker);
         });
       }
       setTimeout(() => {
@@ -67,6 +67,28 @@ export default {
       }, 1000);
     },
     displayMarker(markerPositions) {
+      let MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
+        MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
+        OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
+        OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
+        OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
+        OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
+        OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
+        OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
+        SPRITE_MARKER_URL =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png", // 스프라이트 마커 이미지 URL
+        SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
+        SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
+        SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
+      let markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+        markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
+        overMarkerSize = new kakao.maps.Size(
+          OVER_MARKER_WIDTH,
+          OVER_MARKER_HEIGHT
+        ), // 오버 마커의 크기
+        overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+        spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+
       if (this.markers.length > 0) {
         this.markers.forEach(marker => marker.setMap(null));
       }
@@ -91,55 +113,19 @@ export default {
           content: element.content
         });
 
-        kakao.maps.event.addListener(
-          marker,
-          "mouseover",
-          this.makeOverListener(map, marker, info)
-        );
-        kakao.maps.event.addListener(
-          marker,
-          "mouseout",
-          this.makeOutListener(info)
-        );
-        kakao.maps.event.addListener(marker, "click", function() {
-          // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-          // 마커의 이미지를 클릭 이미지로 변경합니다
-          if (!selectedMarker || selectedMarker !== marker) {
-            // 클릭된 마커 객체가 null이 아니면
-            // 클릭된 마커의 이미지를 기본 이미지로 변경하고
-            !!selectedMarker &&
-              selectedMarker.setImage(selectedMarker.normalImage);
+        kakao.maps.event.addListener(marker, "mouseover", () => {});
 
-            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-            marker.setImage(clickImage);
-          }
-
-          // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-          selectedMarker = marker;
-        });
+        kakao.maps.event.addListener(marker, "mouseout", () => {});
+        kakao.maps.event.addListener(marker, "click", () => {});
         markers.push(marker);
       }
 
-      const positions = markerPositions.map(
-        position => new kakao.maps.LatLng(...position)
+      const bounds = positions.reduce(
+        (bounds, latlng) => bounds.extend(latlng),
+        new kakao.maps.LatLngBounds()
       );
-      if (positions.length > 0) {
-        this.markers = positions.map(
-          position =>
-            new kakao.maps.Marker({
-              map: this.map,
-              image: markerImage, // 마커 이미지
-              position
-            })
-        );
 
-        const bounds = positions.reduce(
-          (bounds, latlng) => bounds.extend(latlng),
-          new kakao.maps.LatLngBounds()
-        );
-
-        this.map.setBounds(bounds);
-      }
+      this.map.setBounds(bounds);
     },
     displayInfoWindow() {
       if (this.infowindow && this.infowindow.getMap()) {

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "KakaoMap",
   data() {
@@ -15,6 +17,7 @@ export default {
       map: "",
       markers: [],
       apts: [],
+      aptdetails: [],
       infowindow: null
     };
   },
@@ -31,6 +34,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["getAPTDetail"]),
     initMap() {
       const container = document.getElementById("map");
       const options = {
@@ -53,7 +57,7 @@ export default {
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(element.address, function(result, status) {
           if (status === kakao.maps.services.Status.OK)
-            markerPositions.push([result[0].y, result[0].x]);
+            markerPositions.push([result[0].y, result[0].x, element.no]);
         });
       }
       setTimeout(() => {
@@ -62,12 +66,16 @@ export default {
     },
     displayMarker(markerPositions) {
       if (this.markers.length > 0) {
-        this.markers.forEach(marker => marker.setMap(null));
+        console.log(this.markers);
+        this.markers.forEach(marker => {
+          marker.setMap(null);
+        });
       }
 
-      const positions = markerPositions.map(
-        position => new kakao.maps.LatLng(...position)
-      );
+      const positions = markerPositions.map(position => [
+        new kakao.maps.LatLng(position[0], position[1]),
+        position[2]
+      ]);
 
       let imageSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -78,42 +86,27 @@ export default {
       let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
       if (positions.length > 0) {
-        this.markers = positions.map(
-          position =>
-            new kakao.maps.Marker({
-              map: this.map,
-              image: markerImage, // 마커 이미지
-              position
-            })
-        );
+        this.markers = positions.map(position => {
+          let marker = new kakao.maps.Marker({
+            map: this.map,
+            image: markerImage, // 마커 이미지
+            position: position[0]
+          });
+          kakao.maps.event.addListener(marker, "mouseover", () => {});
+          kakao.maps.event.addListener(marker, "mouseout", () => {});
+          kakao.maps.event.addListener(marker, "click", () => {
+            this.getAPTDetail(position[1]);
+          });
+          return marker;
+        });
 
         const bounds = positions.reduce(
-          (bounds, latlng) => bounds.extend(latlng),
+          (bounds, latlng) => bounds.extend(latlng[0]),
           new kakao.maps.LatLngBounds()
         );
 
         this.map.setBounds(bounds);
       }
-    },
-    displayInfoWindow() {
-      if (this.infowindow && this.infowindow.getMap()) {
-        //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
-        this.map.setCenter(this.infowindow.getPosition());
-        return;
-      }
-
-      var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
-        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-      this.infowindow = new kakao.maps.InfoWindow({
-        map: this.map, // 인포윈도우가 표시될 지도
-        position: iwPosition,
-        content: iwContent,
-        removable: iwRemoveable
-      });
-
-      this.map.setCenter(iwPosition);
     }
   },
   computed: {
