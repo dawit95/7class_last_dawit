@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "KakaoMap",
   data() {
@@ -34,7 +32,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getAPTDetail"]),
     initMap() {
       const container = document.getElementById("map");
       const options = {
@@ -92,10 +89,10 @@ export default {
             image: markerImage, // 마커 이미지
             position: position[0]
           });
-          kakao.maps.event.addListener(marker, "mouseover", () => {});
-          kakao.maps.event.addListener(marker, "mouseout", () => {});
+          // kakao.maps.event.addListener(marker, "mouseover", () => {});
+          // kakao.maps.event.addListener(marker, "mouseout", () => {});
           kakao.maps.event.addListener(marker, "click", () => {
-            this.getAPTDetail(position[1]);
+            this.$store.dispatch("mainMapSession/getAPTDetail", position[1]);
           });
           return marker;
         });
@@ -111,7 +108,7 @@ export default {
   },
   computed: {
     check_apts() {
-      return this.$store.state.apts;
+      return this.$store.state.mainMapSession.apts;
     }
   },
   watch: {

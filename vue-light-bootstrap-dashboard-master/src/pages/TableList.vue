@@ -28,8 +28,7 @@ import LTableDtail from "src/components/TableDtail.vue";
 import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
 
-import http from "../util/http-common";
-import { mapActions } from "vuex";
+import axios from "@/plugins/axios";
 
 const storage = window.sessionStorage;
 
@@ -69,7 +68,7 @@ export default {
     }
   },
   created() {
-    http
+    axios
       .get("/board/all", {
         headers: {
           "jwt-auth-token": storage.getItem("jwt-auth-token")
@@ -80,6 +79,7 @@ export default {
         alert(response.data.usertype);
       })
       .catch(error => {
+        console.log(error);
         this.notifyVue("top", "center");
         this.$router.push("/admin/overview");
       });

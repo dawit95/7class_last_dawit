@@ -51,7 +51,7 @@ export default {
     data: Array
   },
   methods: {
-    ...mapActions(["setNotice"]),
+    ...mapActions(["boardSession/setNotice"]),
     goDetailModal(notice) {
       this.setNotice(notice);
       notice.views += 1;

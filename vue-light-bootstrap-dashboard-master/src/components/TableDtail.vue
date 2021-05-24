@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     getNotice() {
-      return this.$store.state.notice;
+      return this.$store.state.boardSession.notice;
     }
   },
   watch: {

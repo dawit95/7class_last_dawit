@@ -234,8 +234,7 @@ import StatsCard from "src/components/Cards/StatsCard.vue";
 import LTable from "src/components/Table.vue";
 import KakaoMap from "@/pages/KakaoMap.vue";
 
-import http from "@/util/http-common";
-import { mapActions } from "vuex";
+import axios from "@/plugins/axios";
 
 const sidoAddr = "/address/sido";
 const gugunAddr = "/address/gugun";
@@ -383,7 +382,7 @@ export default {
   },
   computed: {
     check_detail() {
-      return this.$store.state.aptdetail;
+      return this.$store.state.mainMapSession.aptdetail;
     }
   },
   watch: {
@@ -391,7 +390,7 @@ export default {
       this.detailList = val;
     },
     selectedSido: function() {
-      http
+      axios
         .get(gugunAddr + "?sido=" + this.selectedSido)
         .then(response => {
           this.gugunOptions = [];
@@ -409,7 +408,7 @@ export default {
         });
     },
     selectedGugun: function() {
-      http
+      axios
         .get(dongAddr + "?gugun=" + this.selectedGugun)
         .then(response => {
           this.dongOptions = [];
@@ -427,17 +426,11 @@ export default {
         });
     },
     selectedDong: function() {
-      this.getAptgo();
-    }
-  },
-  methods: {
-    ...mapActions(["getAPT"]),
-    getAptgo() {
-      this.getAPT(this.selectedDong);
+      this.$store.dispatch("mainMapSession/getAPT", this.selectedDong);
     }
   },
   created() {
-    http
+    axios
       .get(sidoAddr)
       .then(response => {
         let sidoList = response.data;
