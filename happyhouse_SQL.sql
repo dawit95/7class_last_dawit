@@ -25,3 +25,5 @@ CREATE TABLE `board` (
   PRIMARY KEY (`no`),
   FOREIGN KEY (`authorId`) REFERENCES member(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE member ADD token VARCHAR(500);
