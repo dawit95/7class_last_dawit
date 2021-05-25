@@ -10,8 +10,6 @@ axios.interceptors.request.use(
   function(config) {
     const word = config.url.split("/");
     if (word[1] != "address" && word[1] != "apt" && word[1] != "member") {
-      console.log("들어오니? " + config.url);
-
       // library 호출
       const jwt = require("jsonwebtoken");
 
@@ -22,22 +20,17 @@ axios.interceptors.request.use(
       );
 
       if (decodeAccessToken.exp < Date.now() / 1000 + 60) {
-        console.log("만료됨!!");
         config.headers["at-jwt-access-token"] = storage.getItem(
           "at-jwt-access-token"
         );
         config.headers["at-jwt-refresh-token"] = storage.getItem(
           "at-jwt-refresh-token"
         );
-        console.log("headers : ", config.headers);
       } else {
-        console.log("만료되지않음!!");
         config.headers["at-jwt-access-token"] = storage.getItem(
           "at-jwt-access-token"
         );
-        console.log("headers : ", config.headers);
       }
-      console.log(decodeAccessToken);
     }
 
     // config['key']="value"
@@ -58,18 +51,12 @@ axios.interceptors.response.use(
       response.headers["at-jwt-access-token"] !=
         storage.getItem("at-jwt-access-token")
     ) {
-      console.log(
-        "여기 들어오나요? 헤더 : " + response.headers["at-jwt-access-token"]
-      );
-      console.log(
-        "여기 들어오나요? 우리꺼 : " + storage.getItem("at-jwt-access-token")
-      );
       storage.setItem("at-jwt-access-token", "");
       storage.setItem(
         "at-jwt-access-token",
         response.headers["at-jwt-access-token"]
       );
-      console.log("Access Token을 교체합니다!!!");
+      // console.log("Access Token을 교체합니다!!!");
     }
     return response;
   },

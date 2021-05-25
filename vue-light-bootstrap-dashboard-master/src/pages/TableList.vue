@@ -30,14 +30,12 @@ import Card from "src/components/Cards/Card.vue";
 
 import axios from "@/plugins/axios";
 
-const storage = window.sessionStorage;
-
 const tableColumns = [
   { no: "번호" },
   { title: "글제목" },
   { postdate: "작성일" },
   { authorId: "작성자" },
-  { views: "조회수" },
+  { views: "조회수" }
 ];
 export default {
   components: {
@@ -80,9 +78,20 @@ export default {
         this.$router.push("/admin/overview");
       });
   },
-  computed() {
+  computed: {
     currentBoardNotice() {
       return this.$store.state.boardSession.notice;
+    }
+  },
+  watch: {
+    currentBoardNotice(val) {
+      console.log("나 포문!!");
+      for (let idx = 0; idx < this.tableData.length; idx++) {
+        const element = this.tableData[idx];
+        if (element.no == val.no) {
+          this.tableData[idx] = val;
+        }
+      }
     }
   }
 };

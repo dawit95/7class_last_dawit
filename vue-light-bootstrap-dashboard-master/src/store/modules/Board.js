@@ -15,6 +15,9 @@ const mutations = {
   },
   UPDATE_NOTICE(state, notice) {
     state.notice = notice;
+  },
+  DELETE_NOTICE(state) {
+    state.notice = {};
   }
 };
 
@@ -36,17 +39,22 @@ const actions = {
         alert("서버에 문제가 생겼습니다.");
       });
   },
-  mopdifyBoard({ commit }, notice) {
+  modifyBoard({ commit }, notice) {
     axios
       .post("/board/update", notice)
-      .then(res => {
-        notice = res.data.data;
-        commit("UPDATE_NOTICE", notice);
-      })
+      .then(res => {})
       .catch(e => {
         alert("업데이트 실패 : " + e);
-      })
+      });
   },
+  deleteBoard({ commit }, notice) {
+    axios
+      .delete("/board/delete?no=" + notice.no)
+      .then(res => {
+        commit("DELETE_NOTICE");
+      })
+      .catch(e => {});
+  }
 };
 
 export default {
