@@ -4,6 +4,7 @@ import NotFound from "../pages/NotFoundPage.vue";
 
 // Admin pages
 import Overview from "src/pages/Overview.vue";
+import AptDetail from "src/pages/AptDetail.vue";
 import UserProfile from "src/pages/UserProfile.vue";
 import TableList from "src/pages/TableList.vue";
 import Typography from "src/pages/Typography.vue";
@@ -27,6 +28,11 @@ const routes = [
         path: "overview",
         name: "Overview",
         component: Overview
+      },
+      {
+        path: "aptDetail",
+        name: "AptDetail",
+        component: AptDetail
       },
       {
         path: "user",
