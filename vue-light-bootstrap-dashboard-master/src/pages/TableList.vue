@@ -15,6 +15,11 @@
                 :columns="table.columns"
                 :data="tableData"
               >
+              <template #cell(show_details)="row">
+                <b-button size="sm" class="mr-2">
+                  Details
+                </b-button>
+              </template>
               </l-table>
             </div>
           </card>
@@ -37,7 +42,8 @@ const tableColumns = [
   { title: "글제목" },
   { postdate: "작성일" },
   { authorId: "작성자" },
-  { views: "조회수" }
+  { views: "조회수" },
+  { delete: "삭제"}
 ];
 export default {
   components: {
