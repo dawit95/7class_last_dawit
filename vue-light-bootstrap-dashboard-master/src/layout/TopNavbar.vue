@@ -142,7 +142,6 @@ export default {
   watch: {
     getNotice(val) {
       this.username = val;
-      console.log(val);
     }
   },
   data() {
@@ -189,7 +188,7 @@ export default {
     },
     logOut() {
       this.$store.dispatch("memberSession/logOut");
-      this.$router.push("/");
+      this.$router.push({ name: "Overview" });
     }
 
     // toggleNotificationDropDown() {

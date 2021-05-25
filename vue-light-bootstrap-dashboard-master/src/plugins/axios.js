@@ -15,7 +15,7 @@ axios.interceptors.request.use(
       // library 호출
       const jwt = require("jsonwebtoken");
 
-      const decodeAccessToken = jwt.verify(
+      const decodeAccessToken = jwt.decode(
         storage.getItem("at-jwt-access-token"),
         "MYSALT",
         { algorithms: ["HS256"] }
@@ -45,7 +45,7 @@ axios.interceptors.request.use(
     return config;
   },
   function(error) {
-    // Do something with request error
+    console.log("request  에러 : " + error);
     return Promise.reject(error);
   }
 );
@@ -59,11 +59,16 @@ axios.interceptors.response.use(
       response.headers["at-jwt-access-token"] !=
         storage.getItem("at-jwt-access-token")
     ) {
-      console.log("여기 들어오나요?");
+      console.log(
+        "여기 들어오나요? 헤더 : " + response.headers["at-jwt-access-token"]
+      );
+      console.log(
+        "여기 들어오나요? 우리꺼 : " + storage.getItem("at-jwt-access-token")
+      );
       storage.setItem("at-jwt-access-token", "");
       storage.setItem(
         "at-jwt-access-token",
-        res.headers["at-jwt-access-token"]
+        response.headers["at-jwt-access-token"]
       );
       console.log("Access Token을 교체합니다!!!");
     }
@@ -71,8 +76,7 @@ axios.interceptors.response.use(
     return response;
   },
   function(error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+    console.log("response   에러 : " + error);
     return Promise.reject(error);
   }
 );
