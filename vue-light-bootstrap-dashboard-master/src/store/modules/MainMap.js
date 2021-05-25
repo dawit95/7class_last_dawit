@@ -112,12 +112,6 @@ const actions = {
   selectAPT({ commit }, apt) {
     commit("SELECT_APT", apt);
   },
-  initPieChart({ commit }, coordinate) {
-    axios Authorization
-      .get("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=PM9,AD5&radius=20000")
-    
-    
-  }
 };
 
 export default {
