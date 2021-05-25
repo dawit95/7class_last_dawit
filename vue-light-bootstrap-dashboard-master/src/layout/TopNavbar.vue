@@ -14,7 +14,7 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
-      </button> -->
+      </button>
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="nav navbar-nav mr-auto">
           <li class="nav-item">
@@ -70,7 +70,7 @@
         </ul>
         <ul class="navbar-nav ml-auto" v-if="currentUser">
           <li class="nav-item">
-            <a href="#" class="nav-link"> {{ username }}님 </a>
+            <a href="#" class="nav-link"> {{ uname }}님 </a>
           </li>
           <li class="nav-item">
             <base-dropdown title="Dropdown">
@@ -130,18 +130,18 @@
 </template>
 
 <script>
+  import { createNamespacedHelpers } from 'vuex';
+
+const memberHelper = createNamespacedHelpers('memberSession');
+
 export default {
+  
   computed: {
+    ...memberHelper.mapState({
+       uname: (state) => state.uname
+    }),
     currentUser() {
       return this.$store.state.memberSession.isAuth;
-    },
-    getNotice() {
-      return this.$store.state.memberSession.uname;
-    }
-  },
-  watch: {
-    getNotice(val) {
-      this.username = val;
     }
   },
   data() {
@@ -151,8 +151,7 @@ export default {
       idState: null,
       pswd: "",
       pswdState: null,
-      state: null,
-      username: ""
+      state: null
     };
   },
   methods: {
