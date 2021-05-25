@@ -6,7 +6,7 @@ const state = {
   dong: "",
   apts: [],
   aptdetail: [],
-  detail_point: {},
+  detail_point: null,
   apt: {}
 };
 
@@ -36,7 +36,7 @@ const getters = {
       }
     };
     let price = [];
-    for (let idx = 0; idx < state.aptdetail.length; idx++) {
+    for (let idx = state.aptdetail.length - 1; 0 <= idx; idx--) {
       chart.data.labels.push(state.aptdetail[idx].dealDate);
       price.push(state.aptdetail[idx].dealAmount / 100);
     }
@@ -69,6 +69,11 @@ const mutations = {
   },
   SELECT_APT(state, apt) {
     state.apt = apt;
+  },
+  GET_APT_DETAIL_COORDINATE(state, coordinate) {
+    state.detail_point = coordinate;
+    console.log("DETAIL_COORDINATE");
+    console.log(state.detail_point);
   }
 };
 
@@ -106,6 +111,12 @@ const actions = {
   },
   selectAPT({ commit }, apt) {
     commit("SELECT_APT", apt);
+  },
+  initPieChart({ commit }, coordinate) {
+    axios Authorization
+      .get("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=PM9,AD5&radius=20000")
+    
+    
   }
 };
 
