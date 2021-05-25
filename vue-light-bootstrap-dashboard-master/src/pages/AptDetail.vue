@@ -80,7 +80,7 @@
         </div>
 
         <div class="col-md-4">
-          <chart-card :chart-data="pieChart.data" chart-type="Pie">
+          <chart-card :chart-data="getStores.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Email Statistics</h4>
               <p class="card-category">Last Campaign Performance</p>
@@ -188,7 +188,7 @@ export default {
   },
   computed: {
     ...mainMapHelper.mapGetters(["getLineChart"]),
-    ...mainMapHelper.mapGetters(["getPieChart"])
+    ...mainMapHelper.mapGetters(["getStores"])
   },
   data() {
     return {
