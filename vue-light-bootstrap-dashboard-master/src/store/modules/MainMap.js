@@ -6,11 +6,49 @@ const state = {
   dong: "",
   apts: [],
   aptdetail: [],
+  detail_point: {},
   apt: {}
 };
 
 // getter
-const getter = {};
+const getters = {
+  getLineChart(state) {
+    let chart = {
+      data: {
+        labels: [],
+        series: []
+      },
+      options: {
+        low: 0,
+        high: Math.max(state.price) + 10000,
+        showArea: false,
+        height: "245px",
+        axisX: {
+          showGrid: false
+        },
+        lineSmooth: true,
+        showLine: true,
+        showPoint: true,
+        fullWidth: true,
+        chartPadding: {
+          right: 50
+        }
+      }
+    };
+    let price = [];
+    for (let idx = 0; idx < state.aptdetail.length; idx++) {
+      chart.data.labels.push(state.aptdetail[idx].dealDate);
+      price.push(state.aptdetail[idx].dealAmount / 100);
+    }
+    chart.data.series.push(price);
+    chart.data.series.push(price);
+    chart.data.series.push(price);
+    chart.options.low = Math.min(price) - 100;
+    chart.options.high = Math.max(price) + 100;
+    console.log(chart);
+    return chart;
+  }
+};
 
 // mutations
 const mutations = {
@@ -74,7 +112,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
-  getter,
+  getters,
   mutations,
   actions
 };
