@@ -1,4 +1,6 @@
 import axios from "@/plugins/axios";
+import kakaoAPI from "axios";
+
 // initial state
 const state = {
   sido: "",
@@ -7,7 +9,10 @@ const state = {
   apts: [],
   aptdetail: [],
   detail_point: null,
-  apt: {}
+  apt: {},
+  stores: [],
+  detailMax: 100000,
+  detailMin: 0
 };
 
 // getter
@@ -43,10 +48,22 @@ const getters = {
     chart.data.series.push(price);
     chart.data.series.push(price);
     chart.data.series.push(price);
-    chart.options.low = Math.min(price) - 100;
-    chart.options.high = Math.max(price) + 100;
+    chart.options.low = state.detailMin - 100;
+    chart.options.high = state.detailMax + 100;
     console.log(chart);
     return chart;
+  },
+  getStores(state) {
+    let pieChart = {
+      data: { labels: [], series: [] }
+    };
+    for (let idx = 0; idx < state.stores.length; idx++) {
+      const element = state.stores[idx];
+      pieChart.data.labels.push();
+      pieChart.data.series.push();
+    }
+
+    return pieChart;
   }
 };
 
@@ -74,6 +91,15 @@ const mutations = {
     state.detail_point = coordinate;
     console.log("DETAIL_COORDINATE");
     console.log(state.detail_point);
+  },
+  MAX_VALUE(state, max) {
+    state.detailMax = max;
+  },
+  MIN_VALUE(state, min) {
+    state.detailMax = min;
+  },
+  SET_STORES(state, stores) {
+    state.stores = stores;
   }
 };
 
@@ -103,7 +129,9 @@ const actions = {
     axios
       .get("/apt/detail?no=" + no)
       .then(response => {
-        commit("GET_APT_DETAIL_LIST", response.data);
+        commit("GET_APT_DETAIL_LIST", response.data.list);
+        commit("MAX_VALUE", response.data.max);
+        commit("MIN_VALUE", response.data.min);
       })
       .catch(error => {
         alert(error);
@@ -113,10 +141,25 @@ const actions = {
     commit("SELECT_APT", apt);
   },
   initPieChart({ commit }, coordinate) {
-    axios Authorization
-      .get("https://dapi.kakao.com/v2/local/search/category.json?category_group_code=PM9,AD5&radius=20000")
-    
-    
+    kakaoAPI
+      .get(
+        "https://dapi.kakao.com/v2/local/search/category.json?category_group_code=MT1,CS2,PK6,SW8,FD6,CE7,HP8&x=" +
+          coordinate.La +
+          "&y=" +
+          coordinate.Ma +
+          "&radius=20000",
+        {
+          headers: {
+            Authorization: "KakaoAK d7f280d8f6f64bdf7c2949bc38777330"
+          }
+        }
+      )
+      .then(res => {
+        // console.log("카카오 주변 상권");
+        // console.log(res);
+        commit("SET_STORES", res.data.documents);
+      })
+      .catch(err => {});
   }
 };
 

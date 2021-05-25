@@ -9,7 +9,12 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.interceptors.request.use(
   function(config) {
     const word = config.url.split("/");
-    if (word[1] != "address" && word[1] != "apt" && word[1] != "member") {
+    if (
+      word[1] != "address" &&
+      word[1] != "apt" &&
+      word[1] != "member" &&
+      word[0] != "https:"
+    ) {
       // library 호출
       const jwt = require("jsonwebtoken");
 

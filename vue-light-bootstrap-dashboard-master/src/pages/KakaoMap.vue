@@ -92,8 +92,8 @@ export default {
           // kakao.maps.event.addListener(marker, "mouseover", () => {});
           // kakao.maps.event.addListener(marker, "mouseout", () => {});
           kakao.maps.event.addListener(marker, "click", () => {
-            this.$store.dispatch("mainMapSession/getAPTDetail", postion[1]);
-            this.$store.dispatch("mainMapSession/initPieChart", postion[0]);
+            this.$store.dispatch("mainMapSession/getAPTDetail", position[1]);
+            this.$store.dispatch("mainMapSession/initPieChart", position[0]);
             this.$router.push("/admin/aptDetail");
           });
           return marker;
