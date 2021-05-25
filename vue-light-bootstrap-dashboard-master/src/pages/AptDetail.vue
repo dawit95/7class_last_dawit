@@ -80,7 +80,7 @@
         </div>
 
         <div class="col-md-4">
-          <chart-card :chart-data="pieChart.data" chart-type="Pie">
+          <chart-card :chart-data="getStores.data" chart-type="Pie">
             <template slot="header">
               <h4 class="card-title">Email Statistics</h4>
               <p class="card-category">Last Campaign Performance</p>
@@ -101,7 +101,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <chart-card
             :chart-data="barChart.data"
             :chart-options="barChart.options"
@@ -123,15 +123,15 @@
               </div>
             </template>
           </chart-card>
-        </div>
+        </div> -->
 
-        <div class="col-md-6">
+        <div class="col-md-12">
           <card>
             <template slot="header">
-              <h5 class="title">Tasks</h5>
-              <p class="category">Backend development</p>
+              <h5 class="title">아파트 거래내역</h5>
+              <!-- <p class="category">Backend development</p> -->
             </template>
-            <l-table :data="tableData.data" :columns="tableData.columns">
+            <l-table :data="getAptDetail" :columns="table.columns">
               <template slot="columns"></template>
 
               <template slot-scope="{ row }">
@@ -179,7 +179,13 @@ const mainMapHelper = createNamespacedHelpers(
   "mainMapSession",
   "getLineChartOption"
 );
-
+const tableColumns = [
+  { aptName: "아파트 이름" },
+  { buildYear: "완공년도" },
+  { area: "평수" },
+  { floor: "아프트 층" },
+  { address: "상세주소" }
+];
 export default {
   components: {
     LTable,
@@ -187,11 +193,14 @@ export default {
     StatsCard
   },
   computed: {
-    ...mainMapHelper.mapGetters(["getLineChart"]),
-    ...mainMapHelper.mapGetters(["getPieChart"])
+    ...mainMapHelper.mapGetters(["getLineChart", "getAptDetail"]),
+    ...mainMapHelper.mapGetters(["getStores"])
   },
   data() {
     return {
+      table: {
+        columns: [...tableColumns]
+      },
       editTooltip: "Edit Task",
       deleteTooltip: "Remove",
       pieChart: {
@@ -202,10 +211,8 @@ export default {
       },
       lineChart: {
         data: {
-          labels: [
-          ],
-          series: [
-          ]
+          labels: [],
+          series: []
         },
         options: {
           low: 0,

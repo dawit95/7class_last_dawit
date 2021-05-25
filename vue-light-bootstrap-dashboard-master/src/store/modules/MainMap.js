@@ -47,8 +47,8 @@ const getters = {
     chart.data.series.push(price);
     chart.data.series.push(price);
     chart.data.series.push(price);
-    chart.options.low = state.detailMin - 100;
-    chart.options.high = state.detailMax + 100;
+    chart.options.low = state.detailMin / 100 - 10;
+    chart.options.high = state.detailMax / 100 + 10;
     console.log(chart);
     return chart;
   },
@@ -61,10 +61,13 @@ const getters = {
     };
 
     let percentage = state.stores.length / 100;
-    
+
     for (let idx = 0; idx < state.stores.length; idx++) {
       const element = state.stores[idx];
-      if (element.category_group_name === "대형마트" || element.category_group_name === "편의점") {
+      if (
+        element.category_group_name === "대형마트" ||
+        element.category_group_name === "편의점"
+      ) {
         pieChart.data.series[0] += percentage;
       } else if (element.category_group_name === "주차장") {
         pieChart.data.series[1] += percentage;
@@ -80,6 +83,9 @@ const getters = {
     }
 
     return pieChart;
+  },
+  getAptDetail(state) {
+    return state.aptdetail;
   }
 };
 
