@@ -12,6 +12,9 @@ const getter = {};
 const mutations = {
   SET_NOTICE(state, notice) {
     state.notice = notice;
+  },
+  UPDATE_NOTICE(state, notice) {
+    state.notice = notice;
   }
 };
 
@@ -32,7 +35,18 @@ const actions = {
       .catch(e => {
         alert("서버에 문제가 생겼습니다.");
       });
-  }
+  },
+  mopdifyBoard({ commit }, notice) {
+    axios
+      .post("/board/update", notice)
+      .then(res => {
+        notice = res.data.data;
+        commit("UPDATE_NOTICE", notice);
+      })
+      .catch(e => {
+        alert("업데이트 실패 : " + e);
+      })
+  },
 };
 
 export default {

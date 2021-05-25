@@ -8,7 +8,8 @@
       :current-page="currentPage"
       hover
       @row-clicked="goDetailModal"
-    ></b-table>
+    >
+    </b-table>
     <div class="d-flex justify-content-center">
       <b-pagination
         v-model="currentPage"

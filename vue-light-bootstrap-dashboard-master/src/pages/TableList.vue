@@ -8,7 +8,7 @@
               <h3 class="card-title"><strong>공지사항</strong></h3>
               <p class="card-category">목록 'click'시 상세내용 확인가능</p>
             </template>
-            <l-table-dtail></l-table-dtail>
+            <l-table-detail></l-table-detail>
             <div class="table-responsive">
               <l-table
                 class="table-hover"
@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import LTableDtail from "src/components/BoardTableDtail.vue";
+import LTableDetail from "src/components/BoardTableDtail.vue";
 import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
 
@@ -37,12 +37,12 @@ const tableColumns = [
   { title: "글제목" },
   { postdate: "작성일" },
   { authorId: "작성자" },
-  { views: "조회수" }
+  { views: "조회수" },
 ];
 export default {
   components: {
     LTable,
-    LTableDtail,
+    LTableDetail,
     Card
   },
   data() {
@@ -79,6 +79,11 @@ export default {
         this.notifyVue("top", "center");
         this.$router.push("/admin/overview");
       });
+  },
+  computed() {
+    currentBoardNotice() {
+      return this.$store.state.boardSession.notice;
+    }
   }
 };
 </script>
