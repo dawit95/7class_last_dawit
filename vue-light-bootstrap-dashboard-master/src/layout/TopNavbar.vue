@@ -189,7 +189,7 @@ export default {
     },
     logOut() {
       this.$store.dispatch("memberSession/logOut");
-      this.$router.push("/admin");
+      this.$router.push("/");
     }
 
     // toggleNotificationDropDown() {

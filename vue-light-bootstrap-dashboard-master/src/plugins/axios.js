@@ -55,9 +55,11 @@ axios.interceptors.response.use(
   function(response) {
     if (
       storage.getItem("at-jwt-access-token") &&
+      response.headers["at-jwt-access-token"] &&
       response.headers["at-jwt-access-token"] !=
         storage.getItem("at-jwt-access-token")
     ) {
+      console.log("여기 들어오나요?");
       storage.setItem("at-jwt-access-token", "");
       storage.setItem(
         "at-jwt-access-token",
