@@ -14,15 +14,15 @@
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
         <span class="navbar-toggler-bar burger-lines"></span>
-      </button>
+      </button>-->
       <div class="collapse navbar-collapse justify-content-end">
-        <ul class="nav navbar-nav mr-auto">
+        <!--<ul class="nav navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="dropdown">
               <i class="nc-icon nc-palette"></i>
             </a>
           </li>
-          <!-- <base-dropdown tag="li">
+          <base-dropdown tag="li">
             <template slot="title">
               <i class="nc-icon nc-planet"></i>
               <b class="caret"></b>
@@ -54,8 +54,8 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-          </base-dropdown> -->
-        </ul>
+          </base-dropdown> 
+        </ul>-->
         <ul class="navbar-nav ml-auto" v-if="!currentUser">
           <li class="nav-item">
             <a href="#" class="nav-link" @click="$bvModal.show('login-modal')">
@@ -130,7 +130,7 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 
 const memberHelper = createNamespacedHelpers('memberSession');
 
