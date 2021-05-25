@@ -187,7 +187,8 @@ export default {
     StatsCard
   },
   computed: {
-    ...mainMapHelper.mapGetters(["getLineChart"])
+    ...mainMapHelper.mapGetters(["getLineChart"]),
+    ...mainMapHelper.mapGetters(["getPieChart"])
   },
   data() {
     return {
