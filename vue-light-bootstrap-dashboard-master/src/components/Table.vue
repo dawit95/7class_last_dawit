@@ -9,6 +9,27 @@
       hover
       @row-clicked="goDetailModal"
     >
+      <template #cell(delete)="row">
+        <b-button size="sm" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+        </b-button>
+      </template>
+
+      <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
+            <b-col>{{ row.item.age }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
+            <b-col>{{ row.item.isActive }}</b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
     </b-table>
     <div class="d-flex justify-content-center">
       <b-pagination

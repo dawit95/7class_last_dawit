@@ -15,11 +15,6 @@
                 :columns="table.columns"
                 :data="tableData"
               >
-              <template #cell(show_details)="row">
-                <b-button size="sm" class="mr-2">
-                  Details
-                </b-button>
-              </template>
               </l-table>
             </div>
           </card>
