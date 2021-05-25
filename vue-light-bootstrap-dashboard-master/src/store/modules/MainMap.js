@@ -82,6 +82,22 @@ const getters = {
       }
     }
 
+    let cnt = 0;
+
+    for (let idx = 0; idx < 6; idx++) {
+      if (pieChart.data.series[idx] == 0) {
+        pieChart.data.labels[idx] = " ";
+        cnt++;
+      }
+    }
+
+    if (cnt == 6) {
+      pieChart.data.lebels[0] = "없음";
+      pieChart.data.series[0] = 100;
+    }
+
+    console.log(pieChart.data.lebels);
+
     return pieChart;
   },
   getAptDetail(state) {

@@ -193,7 +193,11 @@ export default {
     StatsCard
   },
   computed: {
+<<<<<<< HEAD
     ...mainMapHelper.mapGetters(["getLineChart", "getAptDetail"]),
+=======
+    ...mainMapHelper.mapGetters(["getLineChart"]),
+>>>>>>> f9cf6d1e1e15fecd79f35ad11fc9f65abf4b4436
     ...mainMapHelper.mapGetters(["getStores"])
   },
   data() {
