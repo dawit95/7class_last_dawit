@@ -82,19 +82,22 @@
         <div class="col-md-4">
           <chart-card :chart-data="getStores.data" chart-type="Pie">
             <template slot="header">
-              <h4 class="card-title">Email Statistics</h4>
-              <p class="card-category">Last Campaign Performance</p>
+              <h4 class="card-title">주변 상권 정보</h4>
+              <!-- <p class="card-category">Last Campaign Performance</p> -->
             </template>
             <template slot="footer">
               <div class="legend">
-                <i class="fa fa-circle text-info"></i> Open
-                <i class="fa fa-circle text-danger"></i> Bounce
-                <i class="fa fa-circle text-warning"></i> Unsubscribe
+                <i class="fa fa-circle text-info"></i> 마트
+                <i class="fa fa-circle text-danger"></i> 주차장
+                <i class="fa fa-circle text-warning"></i> 음식점
+                <i class="fa fa-circle text-secondary"></i> 지하철역
+                <i class="fa fa-circle text-success"></i> 카페
+                <i class="fa fa-circle text-primary"></i> 병원
               </div>
               <hr />
-              <div class="stats">
+              <!-- <div class="stats">
                 <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-              </div>
+              </div> -->
             </template>
           </chart-card>
         </div>
