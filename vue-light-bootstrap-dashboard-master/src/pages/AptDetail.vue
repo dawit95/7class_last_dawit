@@ -222,12 +222,16 @@ export default {
     // dong, aptname, jibun, buildyear
     getGood() {
       let payload = {
-        dong: "",
-        aptname: ""
+        dong: getAptDetail[0].dong,
+        aptname: getAptDetail[0].aptName,
+        jibun: getAptDetail[0].jibun,
+        buildyear: getAptDetail[0].buildYear
       };
       axios
-        .post("/good")
-        .then(res => {})
+        .post("/good", payload)
+        .then(res => {
+          console.log(res.data);
+        })
         .catch(err => {});
     }
   },
