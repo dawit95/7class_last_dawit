@@ -61,6 +61,9 @@ const actions = {
     commit("LOGOUT");
     storage.setItem("at-jwt-access-token", "");
     storage.setItem("at-jwt-refresh-token", "");
+  },
+  rename({ commit }, newName) {
+    commit("LOGIN", newName);
   }
 };
 

@@ -2,6 +2,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
+        <div class="col-md-2"></div>
         <div class="col-md-8">
           <card>
             <h4 slot="header" class="card-title">회원 가입</h4>
@@ -70,7 +71,7 @@
                     </base-input>
                   </div>
                   <div class="col-md-4">
-                    <b-form-group label="성별" v-slot="{ ariaDescribedby }">
+                    <b-form-group style="ml-1" label="성별" v-slot="{ ariaDescribedby }">
                       <b-form-radio-group
                         v-model="user.gender"
                         :aria-describedby="ariaDescribedby"
@@ -99,24 +100,7 @@
             </form>
           </card>
         </div>
-        <div class="col-md-4">
-          <card class="card-user">
-            <img slot="image" src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-            <!-- <div class="author">
-              <a href="#">
-                <img class="avatar border-gray" src="img/faces/face-3.jpg" alt="..."/>
-
-                <h4 class="title">Mike Andrew<br />
-                  <small>michael24</small>
-                </h4>
-              </a>
-            </div>
-            <p class="description text-center"> "Lamborghini Mercy <br>
-              Your chick she so thirsty <br>
-              I'm in that two seat Lambo"
-            </p> -->
-          </card>
-        </div>
+        <div class="col-md-2"></div>
       </div>
     </div>
   </div>
@@ -144,42 +128,28 @@ export default {
         address: '',
         type: 'user',
       },
-      idCheckMsg: '',
+      idCheckMsg: ''
     }
   },
-  computed: {
-    idCheckMsg: function() {
-      console.log("==== TEST =====");
+  created() {
+    this.$watch(
+      () => this.user.id,
+      (newVal, oldVal) => {
+        console.log("shi val...");
 
-      axios
-        .get("/member/checkid", newVal)
-        .then(res => {
-          console.log("==== TRUE ====");
-          console.log(res);
-          this.idCheckMsg = "사용할 수 있는 아이디입니다.";
-        })
-        .catch(e => {
-          console.log("check id fail : " + e);
-          this.idCheckMsg = "사용할 수 없는 아이디입니다.";
-        })
-
-      return "sample";
-    }
-  },
-  watch: {
-    // out_id: function(newVal) {
-    //   axios
-    //     .get("/member/checkid", newVal)
-    //     .then(res => {
-    //       console.log("==== TRUE ====");
-    //       console.log(res);
-    //       this.idCheckMsg = "사용할 수 있는 아이디입니다.";
-    //     })
-    //     .catch(e => {
-    //       console.log("check id fail : " + e);
-    //       this.idCheckMsg = "사용할 수 없는 아이디입니다.";
-    //     })
-    // }
+        axios
+          .get("/member/checkid?id=" + newVal)
+          .then(res => {
+            console.log("==== TRUE ====");
+            console.log(res);
+            this.idCheckMsg = "사용할 수 있는 아이디입니다.";
+          })
+          .catch(e => {
+            console.log("check id fail : " + e);
+            this.idCheckMsg = "사용할 수 없는 아이디입니다.";
+          })
+      }
+    )
   },
   methods: {
     checkForm() {
@@ -222,26 +192,10 @@ export default {
           console.log("signUp error : " + e);
           alert("회원가입에 실패했습니다.");
         })
-    },
-    checkId() {
-      // console.log("==== TEST ====");
-
-      axios
-        .get("/member/checkid", newVal)
-        .then(res => {
-          console.log("==== TRUE ====");
-          console.log(res);
-          this.idCheckMsg = "사용할 수 있는 아이디입니다.";
-        })
-        .catch(e => {
-          console.log("check id fail : " + e);
-          this.idCheckMsg = "사용할 수 없는 아이디입니다.";
-        })
     }
   }
 }
 </script>
 
 <style>
-
 </style>
