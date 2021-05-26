@@ -22,7 +22,6 @@ const mutations = {
   IS_AUTH(state, isAuth) {
     state.isAuth = isAuth;
   },
-
   LOGIN(state, name) {
     state.uname = name;
     state.isAuth = true;
