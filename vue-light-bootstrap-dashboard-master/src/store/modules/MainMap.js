@@ -164,7 +164,7 @@ const actions = {
   getAPT({ commit }, dong) {
     commit("SELECT_DONG", dong);
     axios
-      .get("/apt/all?dong=" + dong)
+      .get("/address/apt?dong=" + dong)
       .then(response => {
         commit("GET_APT_LIST", response.data);
       })
