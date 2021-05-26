@@ -196,10 +196,10 @@
         <div class="col-md-12">
           <card class="card-plain">
             <template slot="header">
-              <h3 class="card-title"><strong>클릭 아파트 거래 목록</strong></h3>
+              <h3 class="card-title"><strong>좋아요 표시한 목록</strong></h3>
             </template>
             <div class="table-responsive">
-              <l-table class="table-hover" :data="detailList"> </l-table>
+              <l-table class="table-hover" :data="goodList"> </l-table>
             </div>
           </card>
         </div>
@@ -291,6 +291,10 @@ import axios from "@/plugins/axios";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
 
+import { createNamespacedHelpers } from "vuex";
+
+const memberHelper = createNamespacedHelpers("memberSession");
+
 const sidoAddr = "/address/sido";
 const gugunAddr = "/address/gugun";
 const dongAddr = "/address/dong";
@@ -321,7 +325,8 @@ export default {
       sidoOptions: [],
       gugunOptions: [],
       dongOptions: [],
-      detailList: []
+      goodList: []
+
       //   editTooltip: "Edit Task",
       //   deleteTooltip: "Remove",
       //   pieChart: {
@@ -446,15 +451,17 @@ export default {
       //   }
     };
   },
-  computed: {
-    check_detail() {
-      return this.$store.state.mainMapSession.aptdetail;
-    }
-  },
+  // computed: {
+  //   check_detail() {
+  //     return this.$store.state.mainMapSession.aptdetail;
+  //   }
+  // },
+  // watch:{
+  //   check_detail(val) {
+  //     this.goodList = val;
+  //   },
+  // }
   watch: {
-    check_detail(val) {
-      this.detailList = val;
-    },
     selectedSido: function() {
       axios
         .get(gugunAddr + "?sido=" + this.selectedSido)
@@ -529,6 +536,23 @@ export default {
         console.log("sido : " + error);
       });
   },
+  updated() {
+    this.$watch(
+      () => this.uname,
+      (newVal, oldVal) => {
+        axios
+          .get("/good/mylist")
+          .then(res => {
+            console.log("유저의 좋아요 리스트");
+            this.goodList = res.data.mylist;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    );
+    // 로그인 여부 확인 후 aeccess토큰과 같이 보내야 함.
+  },
   methods: {
     searchOption() {
       this.$store.dispatch("mainMapSession/getAPTOption", this.search);
@@ -554,6 +578,11 @@ export default {
     //       }
     //     }
     //   }
+  },
+  computed: {
+    ...memberHelper.mapState({
+      uname: state => state.uname
+    })
   }
 };
 </script>

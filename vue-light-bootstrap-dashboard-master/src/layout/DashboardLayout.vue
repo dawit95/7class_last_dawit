@@ -22,10 +22,10 @@
         <i class="nc-icon nc-atom"></i>
         <p>Icons</p>
       </sidebar-link>
-      <sidebar-link to="/admin/aptDetail">
+      <!-- <sidebar-link to="/admin/aptDetail">
         <i class="nc-icon nc-bank"></i>
         <p>AptDetail</p>
-      </sidebar-link>
+      </sidebar-link> -->
       <sidebar-link to="/admin/notifications">
         <i class="nc-icon nc-bell-55"></i>
         <p>Notifications</p>

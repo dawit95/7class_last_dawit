@@ -96,7 +96,7 @@ export default {
             this.$store.dispatch("mainMapSession/initPieChart", position[0]);
             setTimeout(() => {
               this.$router.push("/admin/aptDetail");
-            }, 500);
+            }, 1000);
           });
           return marker;
         });

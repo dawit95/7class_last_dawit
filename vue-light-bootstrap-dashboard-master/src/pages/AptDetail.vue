@@ -12,7 +12,6 @@
                 마지막 거래 날짜 : {{ getAptDetail[0].dealDate }}
               </p>
             </template>
-            <l-table-detail></l-table-detail>
           </card>
         </div>
       </div>
@@ -65,15 +64,14 @@
                 <img
                   src="@/assets/img/like.png"
                   alt=""
-                  class=""
                   style="width:66px; height:66px;"
-                  v-if="!toggle"
+                  v-if="toggle"
                 />
                 <img
                   src="@/assets/img/unlike.png"
                   alt=""
                   style="width:66px; height:66px;"
-                  v-if="toggle"
+                  v-if="!toggle"
                 />
               </a>
             </div>
@@ -213,10 +211,10 @@ import { createNamespacedHelpers } from "vuex";
 
 import axios from "@/plugins/axios";
 
-const mainMapHelper = createNamespacedHelpers(
-  "mainMapSession",
-  "getLineChartOption"
-);
+const mainMapHelper = createNamespacedHelpers("mainMapSession");
+
+const storage = window.sessionStorage;
+
 const tableColumns = [
   { key: "dealAmount", label: "매매 금액", sortable: true },
   { key: "dealDate", label: "거래 일자", sortable: true },
@@ -233,17 +231,15 @@ export default {
   },
   computed: {
     ...mainMapHelper.mapGetters(["getLineChart", "getAptDetail"]),
-    ...mainMapHelper.mapGetters(["getStores"]),
-    toggle() {
-      return flag;
-    }
+    ...mainMapHelper.mapGetters(["getStores"])
   },
   methods: {
     // dong, aptname, jibun, buildyear
     getGood() {
+      let templist = this.getAptDetail[0].address.split(" ");
       let payload = {
-        sido: this.getAptDetail[0].sido,
-        gugun: this.getAptDetail[0].gugun,
+        sido: templist[0],
+        gugun: templist[1],
         dong: this.getAptDetail[0].dong,
         aptname: this.getAptDetail[0].aptName,
         jibun: this.getAptDetail[0].jibun,
@@ -251,10 +247,15 @@ export default {
       };
       console.log("getGood paload");
       console.log(payload);
+      let url = "/good";
+      if (this.toggle) {
+        url = "/good/delete";
+      }
       axios
-        .post("/good", payload)
+        .post(url, payload)
         .then(res => {
-          this.goodCount += 1;
+          this.goodCount += this.toggle ? -1 : 1;
+          this.toggle = !this.toggle;
           console.log("여기 들어왔다가 정상으로 끝남");
           console.log(res.data);
         })
@@ -264,9 +265,45 @@ export default {
         });
     }
   },
+
+  mounted() {
+    const jwt = require("jsonwebtoken");
+    const decodeAccessToken = jwt.decode(
+      storage.getItem("at-jwt-access-token"),
+      "MYSALT",
+      { algorithms: ["HS256"] }
+    );
+    let templist = this.getAptDetail[0].address.split(" ");
+    let payload = {
+      sido: templist[0],
+      gugun: templist[1],
+      dong: this.getAptDetail[0].dong,
+      aptname: this.getAptDetail[0].aptName,
+      jibun: this.getAptDetail[0].jibun,
+      buildyear: this.getAptDetail[0].buildYear
+    };
+    console.log(payload);
+    axios
+      .post("/good/idlist", payload)
+      .then(res => {
+        this.goodCount = res.data.idlist.length;
+        for (let idx = 0; idx < res.data.idlist.length; idx++) {
+          const element = res.data.idlist[idx];
+          if (decodeAccessToken.Member.id == element) {
+            this.toggle = true;
+          }
+
+          console.log("정상작동하면 찍혀요 uname ");
+          console.log(decodeAccessToken);
+          console.log(element);
+        }
+      })
+      .catch(err => {});
+  },
   data() {
     return {
       goodCount: 0,
+      toggle: false,
       table: {
         columns: [...tableColumns]
       },
@@ -378,25 +415,8 @@ export default {
           { title: 'Read "Following makes Medium better"', checked: false },
           { title: "Unfollow 5 enemies from twitter", checked: false }
         ]
-      },
-      flag: true
+      }
     };
-  },
-  mounted() {
-    let payload = {
-      sido: this.getAptDetail[0].sido,
-      gugun: this.getAptDetail[0].gugun,
-      dong: this.getAptDetail[0].dong,
-      aptname: this.getAptDetail[0].aptName,
-      jibun: this.getAptDetail[0].jibun,
-      buildyear: this.getAptDetail[0].buildYear
-    };
-    axios
-      .post("/good/idlist", payload)
-      .then(res => {
-        this.goodCount = res.data.idlist.length;
-      })
-      .catch(err => {});
   }
 };
 </script>

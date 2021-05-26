@@ -70,10 +70,10 @@
         </ul>
         <ul class="navbar-nav ml-auto" v-if="currentUser">
           <li class="nav-item">
-            <a href="#" class="nav-link"> {{ uname }}님 </a>
+            <a href="#" class="nav-link" @click="goProfile"> {{ uname }}님 </a>
           </li>
           <li class="nav-item">
-            <base-dropdown title="Dropdown">
+            <!-- <base-dropdown title="Dropdown">
               <a class="dropdown-item" href="#">Action</a>
               <a class="dropdown-item" href="#">Another action</a>
               <a class="dropdown-item" href="#">Something</a>
@@ -81,7 +81,7 @@
               <a class="dropdown-item" href="#">Something</a>
               <div class="divider"></div>
               <a class="dropdown-item" href="#">Separated link</a>
-            </base-dropdown>
+            </base-dropdown> -->
           </li>
           <li class="nav-item">
             <a href class="nav-link" @click="logOut">
@@ -192,6 +192,9 @@ export default {
     },
     goSignUp() {
       this.$router.push("/admin/signUp");
+    },
+    goProfile() {
+      this.$router.push("/admin/user");
     }
 
     // toggleNotificationDropDown() {
