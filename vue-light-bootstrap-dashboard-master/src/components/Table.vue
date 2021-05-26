@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     goDetailModal(notice) {
-      if(notice.views) {
+      if (notice.type == "notice") {
         this.$store.dispatch("boardSession/setNotice", notice);
         notice.views += 1;
       }

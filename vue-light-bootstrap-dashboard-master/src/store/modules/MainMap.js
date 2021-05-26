@@ -47,16 +47,16 @@ const getters = {
     chart.data.series.push(price);
     chart.data.series.push(price);
     chart.data.series.push(price);
-    chart.options.low = state.detailMin / 100 - 10;
-    chart.options.high = state.detailMax / 100 + 10;
+    chart.options.low = state.detailMin / 100 - 100;
+    chart.options.high = state.detailMax / 100 + 100;
     console.log(chart);
     return chart;
   },
   getStores(state) {
     let pieChart = {
       data: {
-        labels: ["마트", "주차장", "음식점", "지하철역", "카페", "병원"],
-        series: [0, 0, 0, 0, 0, 0]
+        labels: ["마트", "주차장", "음식점", " ", "카페", "병원", "지하철역"],
+        series: [0, 0, 0, 0, 0, 0, 0]
       }
     };
 
@@ -74,7 +74,7 @@ const getters = {
       } else if (element.category_group_name === "음식점") {
         pieChart.data.series[2] += percentage;
       } else if (element.category_group_name === "지하철역") {
-        pieChart.data.series[3] += percentage;
+        pieChart.data.series[6] += percentage;
       } else if (element.category_group_name === "카페") {
         pieChart.data.series[4] += percentage;
       } else if (element.category_group_name === "병원") {
@@ -84,14 +84,14 @@ const getters = {
 
     let cnt = 0;
 
-    for (let idx = 0; idx < 6; idx++) {
+    for (let idx = 0; idx < 7; idx++) {
       if (pieChart.data.series[idx] == 0) {
         pieChart.data.labels[idx] = " ";
         cnt++;
       }
     }
 
-    if (cnt == 6) {
+    if (cnt == 7) {
       pieChart.data.labels[0] = "없음";
       pieChart.data.series[0] = 100;
     }

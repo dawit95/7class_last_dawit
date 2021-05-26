@@ -2,16 +2,31 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
+        <div class="col-12">
+          <card class="card-plain">
+            <template slot="header">
+              <h3 class="card-title">
+                <strong>"{{ getAptDetail[0].aptName }}"의 매매 내역</strong>
+              </h3>
+              <p class="card-category">
+                마지막 거래 날짜 : {{ getAptDetail[0].dealDate }}
+              </p>
+            </template>
+            <l-table-detail></l-table-detail>
+          </card>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <div slot="header" class="icon-warning">
               <i class="nc-icon nc-chart text-warning"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Capacity</p>
-              <h4 class="card-title">105GB</h4>
+              <p class="card-category">면적(m^2)</p>
+              <h4 class="card-title">{{ getAptDetail[0].area }}</h4>
             </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Updated now</div>
+            <div slot="footer"></div>
           </stats-card>
         </div>
 
@@ -21,10 +36,12 @@
               <i class="nc-icon nc-light-3 text-success"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Revenue</p>
-              <h4 class="card-title">$1,345</h4>
+              <p class="card-category">마지막 매매 가격</p>
+              <h4 class="card-title">
+                {{ getAptDetail[0].dealAmount }}(단위:만원)
+              </h4>
             </div>
-            <div slot="footer"><i class="fa fa-calendar-o"></i>Last day</div>
+            <div slot="footer"></div>
           </stats-card>
         </div>
 
@@ -34,10 +51,10 @@
               <i class="nc-icon nc-vector text-danger"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Errors</p>
-              <h4 class="card-title">23</h4>
+              <p class="card-category">APT 층</p>
+              <h4 class="card-title">{{ getAptDetail[0].floor }} 층</h4>
             </div>
-            <div slot="footer"><i class="fa fa-clock-o"></i>Last day</div>
+            <div slot="footer"></div>
           </stats-card>
         </div>
 
@@ -47,10 +64,10 @@
               <i class="nc-icon nc-favourite-28 text-primary"></i>
             </div>
             <div slot="content">
-              <p class="card-category">Followers</p>
-              <h4 class="card-title">+45</h4>
+              <p class="card-category">관심등록</p>
+              <h4 class="card-title">+{{ getAptDetail[0].no }}</h4>
             </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Updated now</div>
+            <div slot="footer"></div>
           </stats-card>
         </div>
       </div>
@@ -63,7 +80,7 @@
           >
             <template slot="header">
               <h4 class="card-title">[아파트 이름]의 거래금액</h4>
-              <p class="card-category">최근 거래 기준(시작: 19년)</p>
+              <p class="card-category">최근 거래 기준(단위:백만)</p>
             </template>
             <template slot="footer">
               <!-- <div class="legend">
@@ -161,10 +178,10 @@
               </template>
             </l-table>
             <div class="footer">
-              <hr />
+              <!-- <hr />
               <div class="stats">
                 <i class="fa fa-history"></i> Updated 3 minutes ago
-              </div>
+              </div> -->
             </div>
           </card>
         </div>
