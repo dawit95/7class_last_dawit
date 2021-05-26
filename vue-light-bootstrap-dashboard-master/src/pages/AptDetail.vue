@@ -180,8 +180,8 @@ const mainMapHelper = createNamespacedHelpers(
   "getLineChartOption"
 );
 const tableColumns = [
-  { key: "aptName", label: "아파트 이름", sortable: false },
-  { key: "dealDate", label: "거래일자", sortable: true },
+  { key: "dealAmount", label: "매매 금액", sortable: true },
+  { key: "dealDate", label: "거래 일자", sortable: true },
   { key: "area", label: "평수", sortable: true },
   { key: "floor", label: "아프트 층", sortable: true },
   { key: "address", label: "상세주소", sortable: false }
