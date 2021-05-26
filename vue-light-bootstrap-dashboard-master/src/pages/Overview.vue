@@ -309,7 +309,7 @@ export default {
       search: {
         dong: "",
         area: [10, 300],
-        price: [0, 1500000],
+        price: [0, 150000],
         name: ""
       },
       AutoList: [],
@@ -457,6 +457,8 @@ export default {
       axios
         .get(gugunAddr + "?sido=" + this.selectedSido)
         .then(response => {
+          this.selectedDong = "";
+          this.isFilter = false;
           this.gugunOptions = [];
           let List = response.data;
           for (let idx = 0; idx < List.length; idx++) {
@@ -475,6 +477,8 @@ export default {
       axios
         .get(dongAddr + "?gugun=" + this.selectedGugun)
         .then(response => {
+          this.selectedDong = "";
+          this.isFilter = false;
           this.dongOptions = [];
           let List = response.data;
           for (let idx = 0; idx < List.length; idx++) {
@@ -490,7 +494,11 @@ export default {
         });
     },
     selectedDong: function() {
-      this.isFilter = !this.isFilter;
+      if (this.selectedDong.trim() === "" || !this.selectedDong) {
+        this.isFilter = false;
+      } else {
+        this.isFilter = true;
+      }
       this.search.dong = this.selectedDong;
       this.$store.dispatch("mainMapSession/getAPT", this.selectedDong);
     }

@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-xl-3 col-md-6">
-          <stats-card>
+          <stats-card @click="getGood">
             <div slot="header" class="icon-info">
               <i class="nc-icon nc-favourite-28 text-primary"></i>
             </div>
@@ -195,6 +195,8 @@ import StatsCard from "src/components/Cards/StatsCard.vue";
 import LTable from "src/components/Table.vue";
 import { createNamespacedHelpers } from "vuex";
 
+import axios from "@/plugins/axios";
+
 const mainMapHelper = createNamespacedHelpers(
   "mainMapSession",
   "getLineChartOption"
@@ -215,6 +217,19 @@ export default {
   computed: {
     ...mainMapHelper.mapGetters(["getLineChart", "getAptDetail"]),
     ...mainMapHelper.mapGetters(["getStores"])
+  },
+  methods: {
+    // dong, aptname, jibun, buildyear
+    getGood() {
+      let payload = {
+        dong: "",
+        aptname: ""
+      };
+      axios
+        .post("/good")
+        .then(res => {})
+        .catch(err => {});
+    }
   },
   data() {
     return {
