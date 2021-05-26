@@ -55,7 +55,7 @@ const getters = {
   getStores(state) {
     let pieChart = {
       data: {
-        labels: ["마트", "주차장", "지하철역", "음식점", "카페", "병원"],
+        labels: ["마트", "주차장", "음식점", "지하철역", "카페", "병원"],
         series: [0, 0, 0, 0, 0, 0]
       }
     };
@@ -71,9 +71,9 @@ const getters = {
         pieChart.data.series[0] += percentage;
       } else if (element.category_group_name === "주차장") {
         pieChart.data.series[1] += percentage;
-      } else if (element.category_group_name === "지하철역") {
-        pieChart.data.series[2] += percentage;
       } else if (element.category_group_name === "음식점") {
+        pieChart.data.series[2] += percentage;
+      } else if (element.category_group_name === "지하철역") {
         pieChart.data.series[3] += percentage;
       } else if (element.category_group_name === "카페") {
         pieChart.data.series[4] += percentage;
@@ -92,12 +92,9 @@ const getters = {
     }
 
     if (cnt == 6) {
-      pieChart.data.lebels[0] = "없음";
+      pieChart.data.labels[0] = "없음";
       pieChart.data.series[0] = 100;
     }
-
-    console.log(pieChart.data.lebels);
-
     return pieChart;
   },
   getAptDetail(state) {

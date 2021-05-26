@@ -54,11 +54,7 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-<<<<<<< HEAD
           </base-dropdown>
-=======
-          </base-dropdown> 
->>>>>>> 24c8c97098a96fc25c456ed52d5aa0228eac1681
         </ul>-->
         <ul class="navbar-nav ml-auto" v-if="!currentUser">
           <li class="nav-item">
@@ -67,7 +63,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" @click="goSignUp">
               <i class="nc-icon nc-notes"></i>&nbsp; Sign Up
             </a>
           </li>
@@ -191,6 +187,9 @@ export default {
     logOut() {
       this.$store.dispatch("memberSession/logOut");
       this.$router.push({ name: "Overview" });
+    },
+    goSignUp() {
+      this.$router.push("/admin/signUp");
     }
 
     // toggleNotificationDropDown() {

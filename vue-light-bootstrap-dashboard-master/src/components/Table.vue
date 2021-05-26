@@ -51,8 +51,10 @@ export default {
   },
   methods: {
     goDetailModal(notice) {
-      this.$store.dispatch("boardSession/setNotice", notice);
-      notice.views += 1;
+      if(notice.views) {
+        this.$store.dispatch("boardSession/setNotice", notice);
+        notice.views += 1;
+      }
     }
   },
   computed: {
