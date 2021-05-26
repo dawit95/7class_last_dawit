@@ -16,6 +16,23 @@ const state = {
 
 // getter
 const getters = {
+  // getSearchList(state) {
+  //   let mainlist = [];
+  //   for (let idx = 0; idx < state.aptdetail.length; idx++) {
+  //     const element = state.aptdetail[idx];
+  //     mainlist.push(element.aptName);
+  //   }
+  //   console.log(mainlist);
+
+  //   let resultList = [];
+  //   for (let idx = 0; idx < mainlist.length; idx++) {
+  //     const element = mainlist[idx];
+  //     if (element.includes(state.target)) {
+  //       resultList.push(element);
+  //     }
+  //   }
+  //   return resultList;
+  // },
   getLineChart(state) {
     let chart = {
       data: {
@@ -162,6 +179,16 @@ const actions = {
         commit("GET_APT_DETAIL_LIST", response.data.list);
         commit("MAX_VALUE", response.data.max);
         commit("MIN_VALUE", response.data.min);
+      })
+      .catch(error => {
+        alert(error);
+      });
+  },
+  getAPTOption({ commit }, payload) {
+    axios
+      .post("/apt/option", payload)
+      .then(response => {
+        commit("GET_APT_LIST", response.data);
       })
       .catch(error => {
         alert(error);

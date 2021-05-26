@@ -78,24 +78,71 @@
         </div>
 
         <div class="col-xl-3 col-md-6">
-          <!-- <stats-card>
-            <div slot="header" class="icon-info">
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
-            </div>
-            <div slot="content">
-              <p class="card-category">Followers</p>
-              <h4 class="card-title">+45</h4>
-            </div>
-            <div slot="footer"><i class="fa fa-refresh"></i>Updated now</div>
-          </stats-card> -->
+          <div class="font-icon-detail">
+            <b-button v-b-toggle.collapse-1 variant="primary" v-if="isFilter"
+              ><i class="nc-icon nc-preferences-circle-rotate"></i
+            ></b-button>
+          </div>
         </div>
       </div>
       <!-- 여기에 필터 검색을 만듬. -->
-      <!-- <div class="row">
-        <div>
-          <label>
+      <div class="row">
+        <div class="col-xl-12 col-md-12">
+          <b-collapse id="collapse-1" class="mt-2">
+            <div class="row">
+              <div class="col-md-3">
+                <b-card>
+                  <p class="card-text">면적(m^2) 필터</p>
+                  <vue-slider
+                    v-model="search.area"
+                    :min="10"
+                    :max="300"
+                    :interval="5"
+                    :lazy="true"
+                  ></vue-slider>
+                </b-card>
+              </div>
+              <div class="col-md-3">
+                <b-card>
+                  <p class="card-text">매매 금액 필터</p>
+                  <vue-slider
+                    v-model="search.price"
+                    :min="0"
+                    :max="1500000"
+                    :interval="10000"
+                    :lazy="true"
+                  ></vue-slider>
+                </b-card>
+              </div>
+              <div class="col-md-6">
+                <b-card>
+                  <p class="card-text">아파트 이름</p>
+                  <input
+                    v-model="search.name"
+                    type="text"
+                    placeholder="검색하고 싶은 아파트 이름을 입력하세요!"
+                  />
+                  <!-- @input="target" -->
+                  <!-- <div class="autocomplete disabled" id="temp">
+                    <div
+                      id="list"
+                      @click="searchSkillAdd(data)"
+                      style="cursor: pointer"
+                      v-for="(data, i) in AutoList"
+                      :key="i"
+                    >
+                      {{ data }}
+                    </div>
+                  </div>-->
+                  <b-button variant="outline-primary" @click="searchOption"
+                    >Button</b-button
+                  >
+                </b-card>
+              </div>
+            </div>
+          </b-collapse>
         </div>
-      </div> -->
+      </div>
       <div class="row">
         <div class="col-md-12">
           <!-- 여기에 지도. -->
@@ -241,6 +288,9 @@ import KakaoMap from "@/pages/KakaoMap.vue";
 
 import axios from "@/plugins/axios";
 
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
+
 const sidoAddr = "/address/sido";
 const gugunAddr = "/address/gugun";
 const dongAddr = "/address/dong";
@@ -250,10 +300,19 @@ export default {
     LTable,
     ChartCard,
     StatsCard,
-    KakaoMap
+    KakaoMap,
+    VueSlider
   },
   data() {
     return {
+      isFilter: false,
+      search: {
+        dong: "",
+        area: [10, 300],
+        price: [0, 1500000],
+        name: ""
+      },
+      AutoList: [],
       selectedSido: "",
       selectedGugun: "",
       selectedDong: "",
@@ -431,6 +490,8 @@ export default {
         });
     },
     selectedDong: function() {
+      this.isFilter = !this.isFilter;
+      this.search.dong = this.selectedDong;
       this.$store.dispatch("mainMapSession/getAPT", this.selectedDong);
     }
   },
@@ -450,6 +511,32 @@ export default {
       .catch(error => {
         console.log("sido : " + error);
       });
+  },
+  methods: {
+    searchOption() {
+      this.$store.dispatch("mainMapSession/getAPTOption", this.search);
+    }
+    //   searchSkillAdd(data) {
+    //     this.search.name = data;
+    //   },
+    //   target(e) {
+    //     console(e.target.value);
+    //     let aptNameList = this.$store.state.mainMapSession.aptdetail;
+    //     let mainlist = [];
+    //     for (let idx = 0; idx < aptNameList.length; idx++) {
+    //       const element = aptNameList[idx];
+    //       mainlist.push(element.aptName);
+    //     }
+    //     console.log(mainlist);
+
+    //     this.AutoList = [];
+    //     for (let idx = 0; idx < mainlist.length; idx++) {
+    //       const element = mainlist[idx];
+    //       if (element.includes(e.target.value)) {
+    //         this.AutoList.push(element);
+    //       }
+    //     }
+    //   }
   }
 };
 </script>
