@@ -59,9 +59,11 @@
         </div>
 
         <div class="col-xl-3 col-md-6">
-          <stats-card @click="getGood">
+          <stats-card>
             <div slot="header" class="icon-info">
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
+              <a @click="getGood">
+                <i class="nc-icon nc-favourite-28 text-primary"></i>
+              </a>
             </div>
             <div slot="content">
               <p class="card-category">관심등록</p>
@@ -204,8 +206,8 @@ const mainMapHelper = createNamespacedHelpers(
 const tableColumns = [
   { key: "dealAmount", label: "매매 금액", sortable: true },
   { key: "dealDate", label: "거래 일자", sortable: true },
-  { key: "area", label: "평수", sortable: true },
-  { key: "floor", label: "아프트 층", sortable: true },
+  { key: "area", label: "면적(m^2)", sortable: true },
+  { key: "floor", label: "아파트 층", sortable: true },
   { key: "address", label: "상세주소", sortable: false }
 ];
 export default {
@@ -222,17 +224,23 @@ export default {
     // dong, aptname, jibun, buildyear
     getGood() {
       let payload = {
-        dong: getAptDetail[0].dong,
-        aptname: getAptDetail[0].aptName,
-        jibun: getAptDetail[0].jibun,
-        buildyear: getAptDetail[0].buildYear
+        dong: this.getAptDetail[0].dong,
+        aptname: this.getAptDetail[0].aptName,
+        jibun: this.getAptDetail[0].jibun,
+        buildyear: this.getAptDetail[0].buildYear
       };
+      console.log("getGood paload");
+      console.log(payload);
       axios
         .post("/good", payload)
         .then(res => {
+          console.log("여기 들어왔다가 정상으로 끝남");
           console.log(res.data);
         })
-        .catch(err => {});
+        .catch(err => {
+          console.log("여기 들어왔다가 비정상으로 끝남");
+          console.log(err);
+        });
     }
   },
   data() {

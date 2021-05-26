@@ -161,10 +161,17 @@ const actions = {
   selectDong({ commit }, dong) {
     commit("SELECT_DONG", dong);
   },
-  getAPT({ commit }, dong) {
-    commit("SELECT_DONG", dong);
+  getAPT({ commit }, payload) {
+    commit("SELECT_DONG", payload.dong);
     axios
-      .get("/address/apt?dong=" + dong)
+      .get(
+        "/address/apt?dong=" +
+          payload.dong +
+          "&gugun=" +
+          payload.gugun +
+          "&sido=" +
+          payload.sido
+      )
       .then(response => {
         commit("GET_APT_LIST", response.data);
       })
