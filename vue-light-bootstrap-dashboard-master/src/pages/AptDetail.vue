@@ -66,12 +66,14 @@
                   src="@/assets/img/like.png"
                   alt=""
                   class=""
-                  style="width:100px; height: 100px; display: none;"
+                  style="width:66px; height:66px;"
+                  v-if="!toggle"
                 />
                 <img
                   src="@/assets/img/unlike.png"
                   alt=""
-                  style="width:100px; height: 100px; display: ;"
+                  style="width:66px; height:66px;"
+                  v-if="toggle"
                 />
               </a>
             </div>
@@ -231,7 +233,10 @@ export default {
   },
   computed: {
     ...mainMapHelper.mapGetters(["getLineChart", "getAptDetail"]),
-    ...mainMapHelper.mapGetters(["getStores"])
+    ...mainMapHelper.mapGetters(["getStores"]),
+    toggle() {
+      return flag;
+    }
   },
   methods: {
     // dong, aptname, jibun, buildyear
@@ -373,7 +378,8 @@ export default {
           { title: 'Read "Following makes Medium better"', checked: false },
           { title: "Unfollow 5 enemies from twitter", checked: false }
         ]
-      }
+      },
+      flag: true
     };
   },
   mounted() {
