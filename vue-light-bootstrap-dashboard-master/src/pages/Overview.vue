@@ -108,7 +108,7 @@
                   <vue-slider
                     v-model="search.price"
                     :min="0"
-                    :max="1500000"
+                    :max="150000"
                     :interval="10000"
                     :lazy="true"
                   ></vue-slider>
