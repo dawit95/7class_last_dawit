@@ -11,7 +11,7 @@ axios.interceptors.request.use(
     const word = config.url.split("/");
     if (
       word[1] != "address" &&
-      word[1] != "apt" &&
+      // word[1] != "apt" &&
       word[1] != "member" &&
       word[0] != "https:"
     ) {
