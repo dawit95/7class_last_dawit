@@ -83,17 +83,19 @@
           </div>
         </div>
 
-        <div class="text-center">
-          <button type="reset" class="btn btn-danger btn-fill float-right">
-            초기화
-          </button>
-          <button type="button" class="btn btn-info btn-fill float-right" @click.prevent="deleteId">
-            회원 삭제
-          </button>
-          <button type="button" class="btn btn-info btn-fill float-right" @click.prevent="checkForm">
-            수정 완료
-          </button>
-        </div>
+        <button type="button" class="btn btn-info btn-fill float-right" @click.prevent="checkForm">
+          수정 완료
+        </button>
+        <button type="button" class="float-right" style="visibility:hidden">
+        </button>
+        <button type="button" class="btn btn-danger btn-fill float-right" @click.prevent="deleteId">
+          회원 삭제
+        </button>
+        <button type="button" class="float-right" style="visibility:hidden">
+        </button>
+        <button type="reset" class="btn btn-secondary btn-fill float-right">
+          초기화
+        </button>
       <div class="clearfix"></div>
     </form>
   </card>

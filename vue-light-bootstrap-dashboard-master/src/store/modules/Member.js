@@ -55,7 +55,9 @@ const actions = {
           commit("LOGIN", userName);
         }
       })
-      .catch(e => {});
+      .catch(e => {
+        alert("아이디 또는 비밀번호가 틀렸습니다.");
+      });
   },
   logOut({ commit }) {
     commit("LOGOUT");

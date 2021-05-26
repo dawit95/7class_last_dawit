@@ -142,6 +142,7 @@ export default {
         "MYSALT",
         { algorithms: ["HS256"] }
       );
+
       if (decodeAccessToken.Member.type === "admin") {
         return true;
       } else {

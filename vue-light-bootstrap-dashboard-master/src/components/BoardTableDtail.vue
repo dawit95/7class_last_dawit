@@ -133,6 +133,8 @@ export default {
         { algorithms: ["HS256"] }
       );
 
+      console.log(decodeAccessToken);
+
       if (decodeAccessToken.Member.type === "admin") {
         return true;
       } else {
