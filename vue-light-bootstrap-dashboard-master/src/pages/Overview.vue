@@ -307,6 +307,8 @@ export default {
     return {
       isFilter: false,
       search: {
+        sido: "",
+        gugun: "",
         dong: "",
         area: [10, 300],
         price: [0, 150000],
@@ -460,6 +462,7 @@ export default {
           this.selectedDong = "";
           this.isFilter = false;
           this.gugunOptions = [];
+          this.search.sido = this.selectedSido;
           let List = response.data;
           for (let idx = 0; idx < List.length; idx++) {
             let gugunObj = List[idx].gugunName;
@@ -480,6 +483,7 @@ export default {
           this.selectedDong = "";
           this.isFilter = false;
           this.dongOptions = [];
+          this.search.gugun = this.selectedGugun;
           let List = response.data;
           for (let idx = 0; idx < List.length; idx++) {
             let dongObj = List[idx].dongName;
@@ -500,7 +504,12 @@ export default {
         this.isFilter = true;
       }
       this.search.dong = this.selectedDong;
-      this.$store.dispatch("mainMapSession/getAPT", this.selectedDong);
+      let payload = {
+        sido: this.selectedSido,
+        gugun: this.selectedGugun,
+        dong: this.selectedDong
+      };
+      this.$store.dispatch("mainMapSession/getAPT", payload);
     }
   },
   created() {

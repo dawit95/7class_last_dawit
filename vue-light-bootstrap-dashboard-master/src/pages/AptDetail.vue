@@ -59,13 +59,25 @@
         </div>
 
         <div class="col-xl-3 col-md-6">
-          <stats-card @click="getGood">
+          <stats-card>
             <div slot="header" class="icon-info">
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
+              <a @click="getGood">
+                <img
+                  src="@/assets/img/like.png"
+                  alt=""
+                  class=""
+                  style="width:100px; height: 100px; display: none;"
+                />
+                <img
+                  src="@/assets/img/unlike.png"
+                  alt=""
+                  style="width:100px; height: 100px; display: ;"
+                />
+              </a>
             </div>
             <div slot="content">
               <p class="card-category">관심등록</p>
-              <h4 class="card-title">+{{ getAptDetail[0].no }}</h4>
+              <h4 class="card-title">+{{ goodCount }}</h4>
             </div>
             <div slot="footer"></div>
           </stats-card>
@@ -79,7 +91,9 @@
             :responsive-options="lineChart.responsiveOptions"
           >
             <template slot="header">
-              <h4 class="card-title">[아파트 이름]의 거래금액</h4>
+              <h4 class="card-title">
+                [{{ getAptDetail[0].aptName }}]의 거래금액
+              </h4>
               <p class="card-category">최근 거래 기준(단위:백만)</p>
             </template>
             <template slot="footer">
@@ -204,10 +218,11 @@ const mainMapHelper = createNamespacedHelpers(
 const tableColumns = [
   { key: "dealAmount", label: "매매 금액", sortable: true },
   { key: "dealDate", label: "거래 일자", sortable: true },
-  { key: "area", label: "평수", sortable: true },
-  { key: "floor", label: "아프트 층", sortable: true },
+  { key: "area", label: "면적(m^2)", sortable: true },
+  { key: "floor", label: "아파트 층", sortable: true },
   { key: "address", label: "상세주소", sortable: false }
 ];
+
 export default {
   components: {
     LTable,
@@ -222,21 +237,31 @@ export default {
     // dong, aptname, jibun, buildyear
     getGood() {
       let payload = {
-        dong: getAptDetail[0].dong,
-        aptname: getAptDetail[0].aptName,
-        jibun: getAptDetail[0].jibun,
-        buildyear: getAptDetail[0].buildYear
+        sido: this.getAptDetail[0].sido,
+        gugun: this.getAptDetail[0].gugun,
+        dong: this.getAptDetail[0].dong,
+        aptname: this.getAptDetail[0].aptName,
+        jibun: this.getAptDetail[0].jibun,
+        buildyear: this.getAptDetail[0].buildYear
       };
+      console.log("getGood paload");
+      console.log(payload);
       axios
         .post("/good", payload)
         .then(res => {
+          this.goodCount += 1;
+          console.log("여기 들어왔다가 정상으로 끝남");
           console.log(res.data);
         })
-        .catch(err => {});
+        .catch(err => {
+          console.log("여기 들어왔다가 비정상으로 끝남");
+          console.log(err);
+        });
     }
   },
   data() {
     return {
+      goodCount: 0,
       table: {
         columns: [...tableColumns]
       },
@@ -350,6 +375,22 @@ export default {
         ]
       }
     };
+  },
+  mounted() {
+    let payload = {
+      sido: this.getAptDetail[0].sido,
+      gugun: this.getAptDetail[0].gugun,
+      dong: this.getAptDetail[0].dong,
+      aptname: this.getAptDetail[0].aptName,
+      jibun: this.getAptDetail[0].jibun,
+      buildyear: this.getAptDetail[0].buildYear
+    };
+    axios
+      .post("/good/idlist", payload)
+      .then(res => {
+        this.goodCount = res.data.idlist.length;
+      })
+      .catch(err => {});
   }
 };
 </script>
