@@ -9,6 +9,18 @@
               <p class="card-category">목록 'click'시 상세내용 확인가능</p>
             </template>
             <l-table-detail></l-table-detail>
+          </card>
+        </div>
+      </div>
+      <div class="row" v-if="isAdmin()">
+        <div class="col-md-11"></div>
+        <div class="col-md-1">
+          <b-button variant="outline-primary">글쓰기</b-button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <card class="card-plain">
             <div class="table-responsive">
               <l-table
                 class="table-hover"
@@ -29,6 +41,8 @@ import LTable from "src/components/Table.vue";
 import Card from "src/components/Cards/Card.vue";
 
 import axios from "@/plugins/axios";
+
+const storage = window.sessionStorage;
 
 const tableColumns = [
   { no: "번호" },
@@ -63,6 +77,21 @@ export default {
         verticalAlign: verticalAlign,
         type: "danger"
       });
+    },
+    isAdmin() {
+      const jwt = require("jsonwebtoken");
+      const decodeAccessToken = jwt.decode(
+        storage.getItem("at-jwt-access-token"),
+        "MYSALT",
+        { algorithms: ["HS256"] }
+      );
+      console.log("디코드");
+      console.log(decodeAccessToken);
+      if (decodeAccessToken.Member.type === "admin") {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   created() {
@@ -70,7 +99,9 @@ export default {
       .get("/board/all")
       .then(response => {
         this.tableData = response.data.boardlist;
-        alert(response.data.usertype);
+        if (response.data.usertype === "admin") {
+          alert(response.data.usertype);
+        }
       })
       .catch(error => {
         console.log(error);

@@ -33,7 +33,7 @@
 
         <div class="row" v-if="isAdmin()">
           <div class="col-md-1">
-            <b-button variant="outline-info">글쓰기</b-button>
+            <!-- <b-button variant="outline-info">글쓰기</b-button> -->
           </div>
           <div class="col-md-9"></div>
           <div class="col-md-1">
@@ -144,6 +144,7 @@ export default {
     },
     updateBoard() {
       this.$store.dispatch("boardSession/modifyBoard", this.notice);
+      this.fixMode = !this.fixMode;
     },
     deleteBoard() {
       this.$store.dispatch("boardSession/deleteBoard", this.notice);

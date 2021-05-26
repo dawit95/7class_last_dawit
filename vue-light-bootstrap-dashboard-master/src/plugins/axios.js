@@ -42,6 +42,7 @@ axios.interceptors.request.use(
     return config;
   },
   function(error) {
+    console.log(error);
     console.log("request  에러 : " + error);
     return Promise.reject(error);
   }
@@ -66,6 +67,7 @@ axios.interceptors.response.use(
     return response;
   },
   function(error) {
+    console.log(error);
     console.log("response   에러 : " + error);
     return Promise.reject(error);
   }

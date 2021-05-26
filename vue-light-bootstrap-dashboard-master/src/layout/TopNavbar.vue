@@ -186,7 +186,9 @@ export default {
     },
     logOut() {
       this.$store.dispatch("memberSession/logOut");
-      this.$router.push({ name: "Overview" });
+      setTimeout(() => {
+        this.$router.push("/admin/overview");
+      }, 100);
     },
     goSignUp() {
       this.$router.push("/admin/signUp");
