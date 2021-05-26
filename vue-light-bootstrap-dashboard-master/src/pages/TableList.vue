@@ -15,7 +15,7 @@
       <div class="row" v-if="isAdmin()">
         <div class="col-md-11"></div>
         <div class="col-md-1">
-          <b-button variant="outline-primary">글쓰기</b-button>
+          <b-button variant="outline-primary" @click="">글쓰기</b-button>
         </div>
       </div>
       <div class="row">
