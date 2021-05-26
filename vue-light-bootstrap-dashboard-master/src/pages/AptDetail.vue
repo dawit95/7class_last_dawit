@@ -82,17 +82,14 @@
         <div class="col-md-4">
           <chart-card :chart-data="getStores.data" chart-type="Pie">
             <template slot="header">
-              <h4 class="card-title">주변 상가 정보</h4>
-              <!-- <p class="card-category">Last Campaign Performance</p> -->
+              <h4 class="card-title">Email Statistics</h4>
+              <p class="card-category">Last Campaign Performance</p>
             </template>
             <template slot="footer">
               <div class="legend">
-                <i class="fa fa-circle text-info"></i> 마트
-                <i class="fa fa-circle text-danger"></i> 주차장
-                <i class="fa fa-circle text-warning"></i> 음식점
-                <i class="fa fa-circle text-success"></i> 카페
-                <i class="fa fa-circle text-primary"></i> 병원
-                <i class="fa fa-circle text-purple"></i> 지하철역
+                <i class="fa fa-circle text-info"></i> Open
+                <i class="fa fa-circle text-danger"></i> Bounce
+                <i class="fa fa-circle text-warning"></i> Unsubscribe
               </div>
               <hr />
               <div class="stats">
@@ -183,12 +180,11 @@ const mainMapHelper = createNamespacedHelpers(
   "getLineChartOption"
 );
 const tableColumns = [
-  { aptName: "아파트 이름" },
-  { dealAmount: "매매 가격 (만 원)" },
-  { buildYear: "완공년도" },
-  { area: "평수" },
-  { floor: "아프트 층" },
-  { address: "상세주소" }
+  { key: "aptName", label: "아파트 이름", sortable: false },
+  { key: "dealDate", label: "거래일자", sortable: true },
+  { key: "area", label: "평수", sortable: true },
+  { key: "floor", label: "아프트 층", sortable: true },
+  { key: "address", label: "상세주소", sortable: false }
 ];
 export default {
   components: {

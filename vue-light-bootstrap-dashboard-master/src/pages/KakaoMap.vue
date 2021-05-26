@@ -94,7 +94,9 @@ export default {
           kakao.maps.event.addListener(marker, "click", () => {
             this.$store.dispatch("mainMapSession/getAPTDetail", position[1]);
             this.$store.dispatch("mainMapSession/initPieChart", position[0]);
-            this.$router.push("/admin/aptDetail");
+            setTimeout(() => {
+              this.$router.push("/admin/aptDetail");
+            }, 500);
           });
           return marker;
         });
