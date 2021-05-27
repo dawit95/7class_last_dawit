@@ -2,7 +2,7 @@ import axios from "axios";
 
 const storage = window.sessionStorage;
 
-axios.defaults.baseURL = "http://localhost:9999/happyhouse";
+axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 // Add a request interceptor
