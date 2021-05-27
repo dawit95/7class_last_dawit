@@ -26,10 +26,10 @@
           </div>
         </div>
 
-        <div class="text-right" aline="right">
+        <!-- <div class="text-right" aline="right">
           작성날짜 : {{ notice.postdate }}
         </div>
-        <p class="mt-3">Store.state.notice : {{ notice }}</p>
+        <p class="mt-3">Store.state.notice : {{ notice }}</p> -->
 
         <div class="row" v-if="isAdmin()">
           <div class="col-md-1">
