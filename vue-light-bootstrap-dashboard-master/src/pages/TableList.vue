@@ -117,6 +117,19 @@ export default {
     };
   },
   methods: {
+    getTable() {
+      axios
+        .get("/board/all")
+        .then(response => {
+          console.log(response);
+          this.tableData = response.data.boardlist;
+        })
+        .catch(error => {
+          console.log(error);
+          this.notifyVue("top", "center");
+          this.$router.push("/admin/overview");
+        });
+    },
     notifyVue(verticalAlign, horizontalAlign) {
       this.$notifications.notify({
         message: `<span><b> 로그인해주세요~!! </b> - 회원만 사용가능한 서비스입니다 </span>`,
@@ -158,6 +171,7 @@ export default {
         .post("/board/write", this.createNotice)
         .then(res => {
           this.fixMode = !this.fixMode;
+          this.getTable();
         })
         .catch(err => {
           this.notifyVue2("center", "center");
@@ -184,15 +198,10 @@ export default {
   },
   watch: {
     currentBoardNotice(val) {
-      console.log("나 포문!!");
-      for (let idx = 0; idx < this.tableData.length; idx++) {
-        const element = this.tableData[idx];
-        if (element.no == val.no) {
-          this.tableData[idx] = val;
-        }
-      }
+      this.getTable();
     }
-  }
+  },
+  notice: function() {}
 };
 </script>
 <style></style>

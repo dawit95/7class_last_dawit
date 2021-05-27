@@ -42,7 +42,9 @@ const actions = {
   modifyBoard({ commit }, notice) {
     axios
       .post("/board/update", notice)
-      .then(res => {})
+      .then(res => {
+        commit("UPDATE_NOTICE", notice);
+      })
       .catch(e => {
         alert("업데이트 실패 : " + e);
       });

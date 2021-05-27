@@ -146,6 +146,7 @@ export default {
     },
     updateBoard() {
       this.$store.dispatch("boardSession/modifyBoard", this.notice);
+      this.$store.dispatch("boardSession/setNotice", this.notice);
       this.fixMode = !this.fixMode;
     },
     deleteBoard() {

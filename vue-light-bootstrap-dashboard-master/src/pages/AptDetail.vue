@@ -266,13 +266,13 @@ export default {
     },
     notifyVue(verticalAlign, horizontalAlign) {
       this.$notifications.notify({
-      message: `<span><b> 로그인해주세요~!! </b> - 회원만 사용가능한 서비스입니다 </span>`,
-      icon: "nc-icon nc-app",
-      horizontalAlign: horizontalAlign,
-      verticalAlign: verticalAlign,
-      type: "danger"
+        message: `<span><b> 로그인해주세요~!! </b> - 회원만 사용가능한 서비스입니다 </span>`,
+        icon: "nc-icon nc-app",
+        horizontalAlign: horizontalAlign,
+        verticalAlign: verticalAlign,
+        type: "danger"
       });
-    },
+    }
   },
   created() {
     axios

@@ -11,9 +11,10 @@ axios.interceptors.request.use(
     const word = config.url.split("/");
     if (
       word[1] != "address" &&
-      // word[1] != "apt" &&
+      // !(word[1] == "apt" && word[2] == "option") &&
       word[1] != "member" &&
-      word[0] != "https:"
+      word[0] != "https:" &&
+      word[1] != "apt"
     ) {
       // library 호출
       const jwt = require("jsonwebtoken");
@@ -45,6 +46,7 @@ axios.interceptors.request.use(
     console.log(error);
     console.log("request  에러 : " + error);
     return Promise.reject(error);
+    // return error;
   }
 );
 
