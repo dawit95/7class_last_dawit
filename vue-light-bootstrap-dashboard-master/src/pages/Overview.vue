@@ -121,6 +121,7 @@
                     v-model="search.name"
                     type="text"
                     placeholder="검색하고 싶은 아파트 이름을 입력하세요!"
+                    style="width:80%"
                   />
                   <!-- @input="target" -->
                   <!-- <div class="autocomplete disabled" id="temp">
@@ -134,8 +135,9 @@
                       {{ data }}
                     </div>
                   </div>-->
+                  &nbsp;
                   <b-button variant="outline-primary" @click="searchOption"
-                    >Button</b-button
+                    >필터 검색</b-button
                   >
                 </b-card>
               </div>
