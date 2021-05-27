@@ -263,9 +263,30 @@ export default {
           console.log("여기 들어왔다가 비정상으로 끝남");
           console.log(err);
         });
-    }
+    },
+    notifyVue(verticalAlign, horizontalAlign) {
+      this.$notifications.notify({
+      message: `<span><b> 로그인해주세요~!! </b> - 회원만 사용가능한 서비스입니다 </span>`,
+      icon: "nc-icon nc-app",
+      horizontalAlign: horizontalAlign,
+      verticalAlign: verticalAlign,
+      type: "danger"
+      });
+    },
   },
-
+  created() {
+    axios
+      .get("/board/all")
+      .then(response => {
+        console.log(response);
+        this.tableData = response.data.boardlist;
+      })
+      .catch(error => {
+        console.log(error);
+        this.notifyVue("top", "center");
+        this.$router.push("/admin/overview");
+      });
+  },
   mounted() {
     const jwt = require("jsonwebtoken");
     const decodeAccessToken = jwt.decode(
